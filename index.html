@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketplace Internacional</title>
+<style>
+:root {
+  --navy:#14243e;
+  --gold:#c6a66b;
+  --cream:#f8f6f1;
+  --white:#fff;
+  --muted:#697386;
+  --line:#e7e3db;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--navy);
+  background:var(--cream);
+}
+button,input,select,textarea {font:inherit}
+button {cursor:pointer}
+.topbar {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:9px;
+  font-size:12px;
+  letter-spacing:.5px;
+}
+header {
+  background:white;
+  border-bottom:1px solid var(--line);
+  padding:18px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.brand {font-size:22px;font-weight:800;letter-spacing:1px}
+.brand span {color:var(--gold)}
+nav {display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+nav a {text-decoration:none;color:var(--navy);font-size:14px}
+.tools {display:flex;gap:9px;align-items:center}
+select,.outline,.primary {
+  border:1px solid var(--line);
+  background:white;
+  padding:11px 13px;
+  border-radius:7px;
+  color:var(--navy);
+}
+.primary {
+  background:var(--navy);
+  color:white;
+  border-color:var(--navy);
+}
+.primary:hover {background:#243b60}
+.hero {
+  padding:68px 7%;
+  background:linear-gradient(115deg,#14243e,#253e60);
+  color:white;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:35px;
+  align-items:center;
+}
+.eyebrow {
+  color:#e1c38c;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:bold;
+}
+h1 {font-size:clamp(36px,5vw,60px);line-height:1.08;margin:17px 0}
+.hero p {color:#e1e6ef;line-height:1.8;max-width:560px}
+.hero-art {
+  min-height:250px;
+  border:1px solid #65748a;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at 50% 40%,#455b78,#1a2b45 70%);
+  font-size:90px;
+}
+.hero .primary {
+  background:var(--gold);
+  color:#14243e;
+  border:0;
+  font-weight:bold;
+  margin-top:12px;
+}
+section {padding:55px 6%}
+.section-head {
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:end;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+h2 {font-size:30px;margin:0 0 10px}
+.muted {color:var(--muted);line-height:1.6}
+.search {
+  width:min(100%,310px);
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:white;
+}
+.filters {display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filter {
+  background:white;border:1px solid var(--line);
+  border-radius:30px;padding:10px 16px;color:var(--navy);
+}
+.filter.active {background:var(--navy);color:white}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+.product {
+  background:white;border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;
+}
+.product-art {
+  height:175px;display:flex;align-items:center;
+  justify-content:center;font-size:66px;
+  background:#eeece6;
+}
+.product:nth-child(4n+2) .product-art {background:#e8edf0}
+.product:nth-child(4n+3) .product-art {background:#eee7e8}
+.product:nth-child(4n+4) .product-art {background:#e8e9df}
+.product-body {padding:16px}
+.category {font-size:11px;text-transform:uppercase;color:#8a744e;letter-spacing:1px}
+.product h3 {font-size:16px;margin:10px 0}
+.price {font-size:20px;font-weight:bold;margin:12px 0}
+.product .primary {width:100%}
+.wholesale {
+  background:#ebe6dc;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:35px;align-items:center;
+}
+.wholesale-card,.form-card {
+  background:white;border:1px solid var(--line);
+  border-radius:12px;padding:25px;
+}
+.wholesale-card li {margin:14px 0;color:#485366}
+.form-grid {display:grid;gap:12px}
+.form-grid input,.form-grid select,.form-grid textarea {
+  width:100%;padding:13px;border:1px solid var(--line);
+  border-radius:7px;background:white;
+}
+.form-grid textarea {min-height:90px;resize:vertical}
+.form-grid .primary {width:100%}
+.seller {
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:35px;align-items:center;
+}
+.notice {font-size:12px;color:var(--muted);line-height:1.6}
+.stats {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:15px;margin-top:25px;
+}
+.stat {padding:18px;background:white;border:1px solid var(--line);border-radius:9px}
+.stat strong {display:block;font-size:20px;margin-bottom:5px}
+footer {background:var(--navy);color:white;padding:35px 6%}
+.footer-inner {display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer p {color:#cbd3df;font-size:13px;line-height:1.7}
+.empty {padding:35px;text-align:center;color:var(--muted);grid-column:1/-1}
+#cart-count {color:var(--gold);font-weight:bold}
+@media(max-width:850px) {
+  .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero,.wholesale,.seller {grid-template-columns:1fr}
+  .hero-art {min-height:170px;font-size:65px}
+}
+@media(max-width:480px) {
+  header {padding:15px 4%}
+  nav {gap:12px}
+  nav a {font-size:12px}
+  section {padding:38px 4%}
+  .grid {gap:10px}
+  .product-art {height:125px;font-size:48px}
+  .product-body {padding:11px}
+  .product h3 {font-size:14px}
+  .price {font-size:17px}
+  .stats {grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar" id="announcement">UN MERCADO · MÚLTIPLES OPORTUNIDADES · ALCANCE INTERNACIONAL</div>
+
+<header>
+  <div class="brand">MARKET<span>PLACE</span></div>
+  <nav>
+    <a href="#catalog" data-i18n="navShop">Comprar</a>
+    <a href="#wholesale" data-i18n="navWholesale">Mayoristas</a>
+    <a href="#seller" data-i18n="navSell">Vender</a>
+  </nav>
+  <div class="tools">
+    <select id="language" aria-label="Language">
+      <option value="es">ES</option>
+      <option value="en">EN</option>
+    </select>
+    <button class="outline" onclick="showCart()">
+      🛒 <span id="cart-label">Carrito</span> (<span id="cart-count">0</span>)
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow" data-i18n="eyebrow">COMERCIO SIN FRONTERAS</div>
+    <h1 data-i18n="heroTitle">Descubre productos. Conecta oportunidades.</h1>
+    <p data-i18n="heroText">Un espacio para descubrir productos, conectar con proveedores y hacer crecer negocios más allá de las fronteras.</p>
+    <a href="#catalog"><button class="primary" data-i18n="explore">Explorar catálogo →</button></a>
+  </div>
+  <div class="hero-art" aria-label="Shopping illustration">🌐 🛍️</div>
+</section>
+
+<section id="catalog">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" data-i18n="collection">LA COLECCIÓN</div>
+      <h2 data-i18n="catalogTitle">Explora el catálogo</h2>
+      <div class="muted" data-i18n="catalogText">Productos seleccionados para diferentes necesidades.</div>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="products"></div>
+</section>
+
+<section class="wholesale" id="wholesale">
+  <div>
+    <div class="eyebrow" data-i18n="business">PARA TU NEGOCIO</div>
+    <h2 data-i18n="wholesaleTitle">¿Compras al por mayor?</h2>
+    <p class="muted" data-i18n="wholesaleText">Conecta con vendedores y consulta opciones para compras por volumen. Las condiciones se acuerdan directamente entre las partes.</p>
+    <div class="stats">
+      <div class="stat"><strong>01</strong><span data-i18n="stat1">Encuentra productos</span></div>
+      <div class="stat"><strong>02</strong><span data-i18n="stat2">Contacta proveedores</span></div>
+      <div class="stat"><strong>03</strong><span data-i18n="stat3">Explora oportunidades</span></div>
+    </div>
+  </div>
+  <div class="wholesale-card">
+    <h3 data-i18n="inquiryTitle">Consulta mayorista</h3>
+    <form id="wholesale-form" class="form-grid">
+      <input required name="name" placeholder="Tu nombre / Your name">
+      <input required type="email" name="email" placeholder="Correo electrónico / Email">
+      <input required name="product" placeholder="¿Qué producto buscas? / Product">
+      <select name="quantity" required>
+        <option value="" data-i18n="quantity">Cantidad aproximada</option>
+        <option value="10-50">10–50</option>
+        <option value="51-100">51–100</option>
+        <option value="100+">100+</option>
+      </select>
+      <button class="primary" type="submit" data-i18n="sendInquiry">Preparar consulta</button>
+      <div class="notice" data-i18n="demoNotice">Demostración: este formulario no envía datos a un servidor.</div>
+    </form>
+  </div>
+</section>
+
+<section id="seller">
+  <div class="seller">
+    <div>
+      <div class="eyebrow" data-i18n="partner">CRECE CON NOSOTROS</div>
+      <h2 data-i18n="sellerTitle">Tu negocio también tiene un lugar aquí.</h2>
+      <p class="muted" data-i18n="sellerText">¿Eres emprendedor, fabricante, distribuidor o empresa? Registra tu interés para explorar cómo ofrecer tus productos en la plataforma.</p>
+      <p class="muted" data-i18n="sellerNote">En esta etapa, el registro es una demostración. Todavía no crea una cuenta de vendedor.</p>
+    </div>
+    <div class="form-card">
+      <form id="seller-form" class="form-grid">
+        <input required name="business" placeholder="Nombre de tu negocio / Business name">
+        <input required name="contact" placeholder="Persona de contacto / Contact person">
+        <input required type="email" name="email" placeholder="Correo electrónico / Email">
+        <select name="type" required>
+          <option value="" data-i18n="businessType">Tipo de negocio</option>
+          <option value="Emprendimiento">Emprendimiento / Small business</option>
+          <option value="Fabricante">Fabricante / Manufacturer</option>
+          <option value="Distribuidor">Distribuidor / Distributor</option>
+          <option value="Empresa">Empresa / Company</option>
+        </select>
+        <textarea name="products" placeholder="¿Qué productos ofreces? / What do you sell?"></textarea>
+        <button class="primary" type="submit" data-i18n="registerInterest">Registrar interés</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="brand">MARKET<span>PLACE</span></div>
+      <p data-i18n="footerText">Conectando productos, personas y oportunidades.</p>
+    </div>
+    <p>© <span id="year"></span> Marketplace Internacional<br>
+    <span data-i18n="footerDemo">Versión inicial de demostración.</span></p>
+  </div>
+</footer>
+
+<script>
+const products = [
+ {id:1,icon:"🎧",nameEs:"Auriculares inalámbricos",nameEn:"Wireless headphones",cat:"electronics",price:29.90},
+ {id:2,icon:"👜",nameEs:"Bolso contemporáneo",nameEn:"Contemporary handbag",cat:"fashion",price:42.00},
+ {id:3,icon:"🧴",nameEs:"Cuidado personal",nameEn:"Personal care",cat:"beauty",price:18.50},
+ {id:4,icon:"⌨️",nameEs:"Teclado compacto",nameEn:"Compact keyboard",cat:"electronics",price:35.00},
+ {id:5,icon:"🥤",nameEs:"Botella reutilizable",nameEn:"Reusable bottle",cat:"home",price:14.90},
+ {id:6,icon:"🕶️",nameEs:"Gafas modernas",nameEn:"Modern sunglasses",cat:"fashion",price:24.00},
+ {id:7,icon:"🕯️",nameEs:"Vela decorativa",nameEn:"Decorative candle",cat:"home",price:12.50},
+ {id:8,icon:"🧼",nameEs:"Set de cuidado",nameEn:"Care set",cat:"beauty",price:21.00}
+];
+
+const translations = {
+ es:{
+  navShop:"Comprar",navWholesale:"Mayoristas",navSell:"Vender",
+  eyebrow:"COMERCIO SIN FRONTERAS",heroTitle:"Descubre productos. Conecta oportunidades.",
+  heroText:"Un espacio para descubrir productos, conectar con proveedores y hacer crecer negocios más allá de las fronteras.",
+  explore:"Explorar catálogo →",collection:"LA COLECCIÓN",catalogTitle:"Explora el catálogo",
+  catalogText:"Productos seleccionados para diferentes necesidades.",search:"Buscar productos...",
+  all:"Todos",electronics:"Electrónica",fashion:"Moda",beauty:"Belleza",home:"Hogar",
+  add:"Añadir al carrito",business:"PARA TU NEGOCIO",wholesaleTitle:"¿Compras al por mayor?",
+  wholesaleText:"Conecta con vendedores y consulta opciones para compras por volumen. Las condiciones se acuerdan directamente entre las partes.",
+  stat1:"Encuentra productos",stat2:"Contacta proveedores",stat3:"Explora oportunidades",
+  inquiryTitle:"Consulta mayorista",quantity:"Cantidad aproximada",
+  sendInquiry:"Preparar consulta",demoNotice:"Demostración: este formulario no envía datos a un servidor.",
+  partner:"CRECE CON NOSOTROS",sellerTitle:"Tu negocio también tiene un lugar aquí.",
+  sellerText:"¿Eres emprendedor, fabricante, distribuidor o empresa? Registra tu interés para explorar cómo ofrecer tus productos en la plataforma.",
+  sellerNote:"En esta etapa, el registro es una demostración. Todavía no crea una cuenta de vendedor.",
+  businessType:"Tipo de negocio",registerInterest:"Registrar interés",
+  footerText:"Conectando productos, personas y oportunidades.",footerDemo:"Versión inicial de demostración.",
+  cart:"Carrito",empty:"No hay productos que coincidan con tu búsqueda.",
+  added:"Producto añadido al carrito de demostración.",cartEmpty:"Tu carrito está vacío.",
+  cartContents:"Tu carrito",total:"Total estimado",checkout:"Esta demostración no procesa pagos.",
+  prepared:"Tu consulta de demostración está preparada, pero no se ha enviado a nadie.",
+  sellerPrepared:"Tu registro de demostración está preparado, pero no se ha enviado a nadie."
+ },
+ en:{
+  navShop:"Shop",navWholesale:"Wholesale",navSell:"Sell",
+  eyebrow:"COMMERCE WITHOUT BORDERS",heroTitle:"Discover products. Connect opportunities.",
+  heroText:"A place to discover products, connect with suppliers and grow businesses across borders.",
+  explore:"Explore catalog →",collection:"THE COLLECTION",catalogTitle:"Explore the catalog",
+  catalogText:"Selected products for different needs.",search:"Search products...",
+  all:"All",electronics:"Electronics",fashion:"Fashion",beauty:"Beauty",home:"Home",
+  add:"Add to cart",business:"FOR YOUR BUSINESS",wholesaleTitle:"Buying wholesale?",
+  wholesaleText:"Connect with sellers and explore bulk purchasing options. Terms are agreed directly between the parties.",
+  stat1:"Find products",stat2:"Contact suppliers",stat3:"Explore opportunities",
+  inquiryTitle:"Wholesale inquiry",quantity:"Estimated quantity",
+  sendInquiry:"Prepare inquiry",demoNotice:"Demo: this form does not send data to a server.",
+  partner:"GROW WITH US",sellerTitle:"Your business belongs here, too.",
+  sellerText:"Are you an entrepreneur, manufacturer, distributor or company? Register your interest in offering products on the platform.",
+  sellerNote:"At this stage, registration is a demo. It does not create a seller account.",
+  businessType:"Business type",registerInterest:"Register interest",
+  footerText:"Connecting products, people and opportunities.",footerDemo:"Initial demo version.",
+  cart:"Cart",empty:"No products match your search.",
+  added:"Product added to the demo cart.",cartEmpty:"Your cart is empty.",
+  cartContents:"Your cart",total:"Estimated total",checkout:"This demo does not process payments.",
+  prepared:"Your demo inquiry is prepared, but has not been sent to anyone.",
+  sellerPrepared:"Your demo registration is prepared, but has not been sent to anyone."
+ }
+};
+
+let lang = "es";
+let category = "all";
+let cart = [];
+
+function t(key){return translations[lang][key] || key}
+function money(value){
+ return new Intl.NumberFormat(lang==="es"?"es-CR":"en-US",
+ {style:"currency",currency:"USD"}).format(value);
+}
+function renderFilters(){
+ const cats=["all","electronics","fashion","beauty","home"];
+ document.getElementById("filters").innerHTML=cats.map(c=>
+ `<button class="filter ${category===c?"active":""}" data-cat="${c}">${t(c)}</button>`
+ ).join("");
+ document.querySelectorAll("[data-cat]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+   category=btn.dataset.cat;renderFilters();renderProducts();
+  });
+ });
+}
+function renderProducts(){
+ const query=document.getElementById("search").value.trim().toLowerCase();
+ const filtered=products.filter(p=>{
+  const name=lang==="es"?p.nameEs:p.nameEn;
+  return (category==="all"||p.cat===category) &&
+   (name.toLowerCase().includes(query)||t(p.cat).toLowerCase().includes(query));
+ });
+ document.getElementById("products").innerHTML=filtered.length?filtered.map(p=>`
+  <article class="product">
+   <div class="product-art">${p.icon}</div>
+   <div class="product-body">
+    <div class="category">${t(p.cat)}</div>
+    <h3>${lang==="es"?p.nameEs:p.nameEn}</h3>
+    <div class="price">${money(p.price)}</div>
+    <button class="primary" data-add="${p.id}">${t("add")}</button>
+   </div>
+  </article>`).join(""):`<div class="empty">${t("empty")}</div>`;
+ document.querySelectorAll("[data-add]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+   cart.push(Number(btn.dataset.add));updateCart();
+   alert(t("added"));
+  });
+ });
+}
+function updateCart(){
+ document.getElementById("cart-count").textContent=cart.length;
+}
+function showCart(){
+ if(!cart.length){alert(t("cartEmpty"));return}
+ const total=cart.reduce((sum,id)=>sum+products.find(p=>p.id===id).price,0);
+ const names=cart.map(id=>{
+  const p=products.find(x=>x.id===id);
+  return (lang==="es"?p.nameEs:p.nameEn);
+ });
+ alert(t("cartContents")+":\n"+names.join("\n")+"\n\n"+t("total")+": "+money(total)+"\n\n"+t("checkout"));
+}
+function applyLanguage(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+  const key=el.dataset.i18n;
+  if(translations[lang][key])el.textContent=translations[lang][key];
+ });
+ document.getElementById("search").placeholder=t("search");
+ document.getElementById("cart-label").textContent=t("cart");
+ document.getElementById("announcement").textContent=lang==="es"
+  ?"UN MERCADO · MÚLTIPLES OPORTUNIDADES · ALCANCE INTERNACIONAL"
+  :"ONE MARKETPLACE · MANY OPPORTUNITIES · GLOBAL REACH";
+ renderFilters();renderProducts();
+}
+document.getElementById("language").addEventListener("change",e=>{
+ lang=e.target.value;applyLanguage();
+});
+document.getElementById("search").addEventListener("input",renderProducts);
+
+document.getElementById("wholesale-form").addEventListener("submit",e=>{
+ e.preventDefault();alert(t("prepared"));
+});
+document.getElementById("seller-form").addEventListener("submit",e=>{
+ e.preventDefault();alert(t("sellerPrepared"));
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+applyLanguage();
+</script>
+</body>
+</html>
