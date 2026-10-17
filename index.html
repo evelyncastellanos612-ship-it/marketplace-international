@@ -1,452 +1,2321 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketplace Internacional</title>
-<style>
-:root {
-  --navy:#14243e;
-  --gold:#c6a66b;
-  --cream:#f8f6f1;
-  --white:#fff;
-  --muted:#697386;
-  --line:#e7e3db;
-}
-* {box-sizing:border-box}
-body {
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--navy);
-  background:var(--cream);
-}
-button,input,select,textarea {font:inherit}
-button {cursor:pointer}
-.topbar {
-  background:var(--navy);
-  color:white;
-  text-align:center;
-  padding:9px;
-  font-size:12px;
-  letter-spacing:.5px;
-}
-header {
-  background:white;
-  border-bottom:1px solid var(--line);
-  padding:18px 6%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  flex-wrap:wrap;
-}
-.brand {font-size:22px;font-weight:800;letter-spacing:1px}
-.brand span {color:var(--gold)}
-nav {display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-nav a {text-decoration:none;color:var(--navy);font-size:14px}
-.tools {display:flex;gap:9px;align-items:center}
-select,.outline,.primary {
-  border:1px solid var(--line);
-  background:white;
-  padding:11px 13px;
-  border-radius:7px;
-  color:var(--navy);
-}
-.primary {
-  background:var(--navy);
-  color:white;
-  border-color:var(--navy);
-}
-.primary:hover {background:#243b60}
-.hero {
-  padding:68px 7%;
-  background:linear-gradient(115deg,#14243e,#253e60);
-  color:white;
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:35px;
-  align-items:center;
-}
-.eyebrow {
-  color:#e1c38c;
-  text-transform:uppercase;
-  font-size:12px;
-  letter-spacing:2px;
-  font-weight:bold;
-}
-h1 {font-size:clamp(36px,5vw,60px);line-height:1.08;margin:17px 0}
-.hero p {color:#e1e6ef;line-height:1.8;max-width:560px}
-.hero-art {
-  min-height:250px;
-  border:1px solid #65748a;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:radial-gradient(circle at 50% 40%,#455b78,#1a2b45 70%);
-  font-size:90px;
-}
-.hero .primary {
-  background:var(--gold);
-  color:#14243e;
-  border:0;
-  font-weight:bold;
-  margin-top:12px;
-}
-section {padding:55px 6%}
-.section-head {
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  align-items:end;
-  flex-wrap:wrap;
-  margin-bottom:25px;
-}
-h2 {font-size:30px;margin:0 0 10px}
-.muted {color:var(--muted);line-height:1.6}
-.search {
-  width:min(100%,310px);
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  background:white;
-}
-.filters {display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
-.filter {
-  background:white;border:1px solid var(--line);
-  border-radius:30px;padding:10px 16px;color:var(--navy);
-}
-.filter.active {background:var(--navy);color:white}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-}
-.product {
-  background:white;border:1px solid var(--line);
-  border-radius:12px;overflow:hidden;
-}
-.product-art {
-  height:175px;display:flex;align-items:center;
-  justify-content:center;font-size:66px;
-  background:#eeece6;
-}
-.product:nth-child(4n+2) .product-art {background:#e8edf0}
-.product:nth-child(4n+3) .product-art {background:#eee7e8}
-.product:nth-child(4n+4) .product-art {background:#e8e9df}
-.product-body {padding:16px}
-.category {font-size:11px;text-transform:uppercase;color:#8a744e;letter-spacing:1px}
-.product h3 {font-size:16px;margin:10px 0}
-.price {font-size:20px;font-weight:bold;margin:12px 0}
-.product .primary {width:100%}
-.wholesale {
-  background:#ebe6dc;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:35px;align-items:center;
-}
-.wholesale-card,.form-card {
-  background:white;border:1px solid var(--line);
-  border-radius:12px;padding:25px;
-}
-.wholesale-card li {margin:14px 0;color:#485366}
-.form-grid {display:grid;gap:12px}
-.form-grid input,.form-grid select,.form-grid textarea {
-  width:100%;padding:13px;border:1px solid var(--line);
-  border-radius:7px;background:white;
-}
-.form-grid textarea {min-height:90px;resize:vertical}
-.form-grid .primary {width:100%}
-.seller {
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:35px;align-items:center;
-}
-.notice {font-size:12px;color:var(--muted);line-height:1.6}
-.stats {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:15px;margin-top:25px;
-}
-.stat {padding:18px;background:white;border:1px solid var(--line);border-radius:9px}
-.stat strong {display:block;font-size:20px;margin-bottom:5px}
-footer {background:var(--navy);color:white;padding:35px 6%}
-.footer-inner {display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer p {color:#cbd3df;font-size:13px;line-height:1.7}
-.empty {padding:35px;text-align:center;color:var(--muted);grid-column:1/-1}
-#cart-count {color:var(--gold);font-weight:bold}
-@media(max-width:850px) {
-  .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero,.wholesale,.seller {grid-template-columns:1fr}
-  .hero-art {min-height:170px;font-size:65px}
-}
-@media(max-width:480px) {
-  header {padding:15px 4%}
-  nav {gap:12px}
-  nav a {font-size:12px}
-  section {padding:38px 4%}
-  .grid {gap:10px}
-  .product-art {height:125px;font-size:48px}
-  .product-body {padding:11px}
-  .product h3 {font-size:14px}
-  .price {font-size:17px}
-  .stats {grid-template-columns:1fr}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14243E">
+  <meta name="description" content="Yumora, un marketplace global donde cada sueño merece un lugar para crecer.">
+  <title>Yumora | Global Marketplace</title>
+
+  <style>
+    :root {
+      --navy: #14243E;
+      --gold: #D5B77A;
+      --ivory: #F8F6F1;
+      --white: #FFFFFF;
+      --text: #273449;
+      --muted: #687386;
+      --border: #E6E1D7;
+      --success: #287653;
+      --shadow: 0 10px 30px rgba(20, 36, 62, .09);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--ivory);
+      line-height: 1.6;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+    }
+
+    .announcement {
+      background: var(--navy);
+      color: var(--white);
+      padding: 8px 4%;
+      text-align: center;
+      font-size: .82rem;
+      letter-spacing: .03em;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .navbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      color: var(--navy);
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: .08em;
+    }
+
+    .brand-subtitle {
+      color: #8C754A;
+      font-size: .64rem;
+      letter-spacing: .22em;
+      margin-top: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover {
+      color: #9C7A3D;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .language-button,
+    .cart-button,
+    .menu-button {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--navy);
+      padding: 9px 12px;
+      font-weight: 700;
+    }
+
+    .cart-button {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .cart-count {
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 50px;
+      padding: 1px 7px;
+      margin-left: 5px;
+      font-size: .78rem;
+    }
+
+    .menu-button {
+      display: none;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 85% 20%, rgba(213,183,122,.18), transparent 30%),
+        linear-gradient(135deg, #14243E 0%, #203A5D 100%);
+      color: var(--white);
+      padding: 92px 0 86px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 17px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 5vw, 4.6rem);
+      line-height: 1.08;
+      max-width: 720px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      color: #E0E7F0;
+      font-size: 1.08rem;
+      max-width: 610px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 20px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      transition: transform .2s, opacity .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255,255,255,.45);
+      color: var(--white);
+      background: transparent;
+    }
+
+    .button-dark {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .button-light {
+      background: var(--white);
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+
+    .hero-card {
+      border: 1px solid rgba(213,183,122,.4);
+      background: rgba(255,255,255,.07);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-emblem {
+      width: 76px;
+      height: 76px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-card h2 {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      font-size: .96rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-top: 1px solid rgba(255,255,255,.15);
+      font-size: .9rem;
+    }
+
+    .hero-stat strong {
+      color: var(--gold);
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 38px;
+    }
+
+    .section-heading .eyebrow {
+      color: #9C7A3D;
+      margin-bottom: 8px;
+    }
+
+    .section-heading h2 {
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      margin-bottom: 13px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .trust-card {
+      padding: 25px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .trust-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 15px;
+      background: #F0E7D4;
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 1.45rem;
+      margin: 0 auto 15px;
+    }
+
+    .trust-card h3 {
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .trust-card p {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .catalog-section {
+      background: #F0EEE8;
+    }
+
+    .catalog-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+      max-width: 390px;
+    }
+
+    .search-box input,
+    .catalog-toolbar select {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #B4975C;
+      box-shadow: 0 0 0 3px rgba(213,183,122,.2);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .filter-button {
+      padding: 8px 13px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 30px;
+      font-size: .88rem;
+    }
+
+    .filter-button.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      min-height: 175px;
+      background: linear-gradient(135deg, #E8E1D3, #F8F6F1);
+      display: grid;
+      place-items: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: .7rem;
+      padding: 5px 9px;
+      border-radius: 20px;
+    }
+
+    .product-content {
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-category {
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #9C7A3D;
+      font-size: .7rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .product-content h3 {
+      color: var(--navy);
+      font-size: 1rem;
+      margin-bottom: 7px;
+    }
+
+    .product-description {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .product-price {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .commission-note {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-bottom: 13px;
+    }
+
+    .product-content .button {
+      width: 100%;
+      padding: 10px;
+      font-size: .88rem;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 35px;
+      text-align: center;
+      background: var(--white);
+      border-radius: 14px;
+      color: var(--muted);
+    }
+
+    .demo-notice {
+      margin-top: 24px;
+      border: 1px solid #E5D6B8;
+      background: #FBF5E8;
+      padding: 15px 18px;
+      border-radius: 12px;
+      color: #6F5A32;
+      font-size: .88rem;
+    }
+
+    .commission-section {
+      background: var(--white);
+    }
+
+    .commission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      max-width: 850px;
+      margin: 0 auto 28px;
+    }
+
+    .commission-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      background: var(--ivory);
+    }
+
+    .commission-card.featured {
+      border: 2px solid var(--gold);
+    }
+
+    .commission-card h3 {
+      color: var(--navy);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .commission-rate {
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: bold;
+      line-height: 1.2;
+      margin: 14px 0;
+    }
+
+    .commission-card p,
+    .commission-card li {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .commission-card ul {
+      padding-left: 20px;
+      margin-top: 15px;
+    }
+
+    .commission-card li {
+      margin-bottom: 7px;
+    }
+
+    .commission-footnote {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .step-card h3 {
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .forms-section {
+      background: #F0EEE8;
+    }
+
+    .forms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .form-card h3 {
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: 1.55rem;
+      margin-bottom: 8px;
+    }
+
+    .form-card > p {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: .86rem;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #FFFEFC;
+      outline: none;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-card .button {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .form-notice {
+      margin-top: 12px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .form-message {
+      margin-top: 12px;
+      padding: 12px;
+      background: #EAF5EF;
+      color: var(--success);
+      border-radius: 9px;
+      font-size: .88rem;
+      display: none;
+    }
+
+    .form-message.visible {
+      display: block;
+    }
+
+    .payment-section {
+      background: var(--white);
+    }
+
+    .payment-panel {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 30px;
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .paypal-word {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #123B7A;
+      letter-spacing: -.04em;
+      margin-bottom: 12px;
+    }
+
+    .payment-panel p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .payment-panel .button {
+      margin: 0 auto;
+    }
+
+    .payment-warning {
+      margin-top: 17px;
+      font-size: .83rem;
+      color: #7A633A;
+    }
+
+    .faq-list {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .faq-item h3 {
+      color: var(--navy);
+      font-size: 1rem;
+      margin-bottom: 7px;
+    }
+
+    .faq-item p {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 48px 0 22px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 40px;
+      padding-bottom: 35px;
+    }
+
+    .footer-brand .brand-name {
+      color: var(--white);
+    }
+
+    .footer-brand p {
+      color: #C6CFDA;
+      margin-top: 16px;
+      max-width: 350px;
+      font-size: .9rem;
+    }
+
+    .footer-column h3 {
+      color: var(--gold);
+      font-size: .95rem;
+      margin-bottom: 13px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #D4DCE5;
+      margin-bottom: 9px;
+      font-size: .88rem;
+    }
+
+    .footer-column a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.16);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #C6CFDA;
+      font-size: .8rem;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 35, .6);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .cart-modal {
+      background: var(--white);
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.2);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      color: var(--navy);
+      font-family: Georgia, serif;
+    }
+
+    .close-modal {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      padding: 5px 11px;
+      font-size: 1.2rem;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item h3 {
+      color: var(--navy);
+      font-size: .95rem;
+    }
+
+    .cart-item p {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .cart-item-price {
+      text-align: right;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 8px;
+    }
+
+    .quantity-controls button,
+    .remove-item {
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 6px;
+      min-width: 27px;
+      min-height: 27px;
+    }
+
+    .remove-item {
+      padding: 4px 8px;
+      font-size: .75rem;
+      color: #9B3535;
+      margin-top: 6px;
+    }
+
+    .cart-summary {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 9px;
+      font-size: .9rem;
+    }
+
+    .summary-row strong {
+      color: var(--navy);
+    }
+
+    .summary-row.total {
+      font-size: 1.12rem;
+      font-weight: 800;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cart-explainer {
+      background: #FBF5E8;
+      color: #6F5A32;
+      padding: 12px;
+      border-radius: 9px;
+      margin: 15px 0;
+      font-size: .82rem;
+    }
+
+    .cart-checkout {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--navy);
+      color: var(--white);
+      padding: 12px 18px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      z-index: 200;
+      transition: opacity .2s, transform .2s;
+      width: max-content;
+      max-width: 90%;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        gap: 13px;
+        font-size: .84rem;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero-grid {
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        min-height: 72px;
+        flex-wrap: wrap;
+        padding: 10px 0;
+      }
+
+      .brand-name {
+        font-size: 1.7rem;
+      }
+
+      .menu-button {
+        display: inline-block;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 10px 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .hero {
+        padding: 65px 0;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 24px;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .trust-grid,
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product-image {
+        min-height: 135px;
+        font-size: 3rem;
+      }
+
+      .product-content {
+        padding: 13px;
+      }
+
+      .product-content h3 {
+        font-size: .93rem;
+      }
+
+      .product-description {
+        font-size: .8rem;
+      }
+
+      .commission-grid,
+      .forms-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .language-button,
+      .cart-button,
+      .menu-button {
+        padding: 8px 9px;
+        font-size: .8rem;
+      }
+
+      .hero h1 {
+        font-size: 2.45rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .product-image {
+        min-height: 115px;
+      }
+
+      .product-content .button {
+        font-size: .78rem;
+      }
+
+      .commission-card,
+      .form-card {
+        padding: 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="topbar" id="announcement">UN MERCADO · MÚLTIPLES OPORTUNIDADES · ALCANCE INTERNACIONAL</div>
 
-<header>
-  <div class="brand">MARKET<span>PLACE</span></div>
-  <nav>
-    <a href="#catalog" data-i18n="navShop">Comprar</a>
-    <a href="#wholesale" data-i18n="navWholesale">Mayoristas</a>
-    <a href="#seller" data-i18n="navSell">Vender</a>
-  </nav>
-  <div class="tools">
-    <select id="language" aria-label="Language">
-      <option value="es">ES</option>
-      <option value="en">EN</option>
-    </select>
-    <button class="outline" onclick="showCart()">
-      🛒 <span id="cart-label">Carrito</span> (<span id="cart-count">0</span>)
-    </button>
+  <div class="announcement" data-i18n="announcement">
+    Un mercado global para sueños que merecen crecer.
   </div>
-</header>
 
-<main>
-<section class="hero">
-  <div>
-    <div class="eyebrow" data-i18n="eyebrow">COMERCIO SIN FRONTERAS</div>
-    <h1 data-i18n="heroTitle">Descubre productos. Conecta oportunidades.</h1>
-    <p data-i18n="heroText">Un espacio para descubrir productos, conectar con proveedores y hacer crecer negocios más allá de las fronteras.</p>
-    <a href="#catalog"><button class="primary" data-i18n="explore">Explorar catálogo →</button></a>
-  </div>
-  <div class="hero-art" aria-label="Shopping illustration">🌐 🛍️</div>
-</section>
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="#inicio" aria-label="Yumora inicio">
+        <span class="brand-name">YUMORA</span>
+        <span class="brand-subtitle">GLOBAL MARKETPLACE</span>
+      </a>
 
-<section id="catalog">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow" data-i18n="collection">LA COLECCIÓN</div>
-      <h2 data-i18n="catalogTitle">Explora el catálogo</h2>
-      <div class="muted" data-i18n="catalogText">Productos seleccionados para diferentes necesidades.</div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#inicio" data-i18n="navHome">Inicio</a>
+        <a href="#catalogo" data-i18n="navCatalog">Explorar</a>
+        <a href="#comisiones" data-i18n="navCommissions">Comisiones</a>
+        <a href="#vendedores" data-i18n="navSellers">Vender en Yumora</a>
+        <a href="#mayoristas" data-i18n="navWholesale">Mayoristas</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="language-button" id="languageButton" type="button" aria-label="Change language">EN</button>
+        <button class="cart-button" id="cartButton" type="button">
+          <span data-i18n="cart">Carrito</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open menu">☰</button>
+      </div>
     </div>
-    <input class="search" id="search" type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
-  </div>
-  <div class="filters" id="filters"></div>
-  <div class="grid" id="products"></div>
-</section>
+  </header>
 
-<section class="wholesale" id="wholesale">
-  <div>
-    <div class="eyebrow" data-i18n="business">PARA TU NEGOCIO</div>
-    <h2 data-i18n="wholesaleTitle">¿Compras al por mayor?</h2>
-    <p class="muted" data-i18n="wholesaleText">Conecta con vendedores y consulta opciones para compras por volumen. Las condiciones se acuerdan directamente entre las partes.</p>
-    <div class="stats">
-      <div class="stat"><strong>01</strong><span data-i18n="stat1">Encuentra productos</span></div>
-      <div class="stat"><strong>02</strong><span data-i18n="stat2">Contacta proveedores</span></div>
-      <div class="stat"><strong>03</strong><span data-i18n="stat3">Explora oportunidades</span></div>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow" data-i18n="heroEyebrow">Un mundo de posibilidades</span>
+          <h1 data-i18n="heroTitle">Cada sueño merece un lugar para <span>crecer.</span></h1>
+          <p data-i18n="heroText">
+            Descubre productos de emprendedores, marcas y distribuidores.
+            Conecta con oportunidades que cruzan fronteras y lleva tus ideas más lejos.
+          </p>
+          <div class="hero-buttons">
+            <a href="#catalogo" class="button button-primary" data-i18n="exploreButton">Explorar productos</a>
+            <a href="#vendedores" class="button button-secondary" data-i18n="sellButton">Quiero vender</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-emblem">夢</div>
+          <h2>Yumora</h2>
+          <p data-i18n="heroCardText">
+            Un marketplace creado para conectar ideas, productos y personas en un solo lugar.
+          </p>
+          <div class="hero-stat">
+            <span data-i18n="statEntrepreneurs">Emprendedores</span>
+            <strong data-i18n="statWelcome">Bienvenidos</strong>
+          </div>
+          <div class="hero-stat">
+            <span data-i18n="statWholesale">Ventas al por mayor</span>
+            <strong data-i18n="statAvailable">Disponibles</strong>
+          </div>
+          <div class="hero-stat">
+            <span data-i18n="statCommission">Comisiones transparentes</span>
+            <strong>5% / 10%</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ventajas">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="advantagesEyebrow">La experiencia Yumora</span>
+          <h2 data-i18n="advantagesTitle">Un lugar para comprar, vender y crecer</h2>
+          <p data-i18n="advantagesText">Una propuesta pensada para pequeños emprendimientos, empresas y compradores mayoristas.</p>
+        </div>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <div class="trust-icon">✧</div>
+            <h3 data-i18n="advantage1Title">Talento sin fronteras</h3>
+            <p data-i18n="advantage1Text">Una vitrina para descubrir productos de vendedores y marcas de distintos lugares.</p>
+          </article>
+          <article class="trust-card">
+            <div class="trust-icon">◇</div>
+            <h3 data-i18n="advantage2Title">Comisiones claras</h3>
+            <p data-i18n="advantage2Text">Un modelo sencillo: 5% para pequeños emprendedores y 10% para ventas mayoristas.</p>
+          </article>
+          <article class="trust-card">
+            <div class="trust-icon">◎</div>
+            <h3 data-i18n="advantage3Title">Oportunidades para crecer</h3>
+            <p data-i18n="advantage3Text">Espacio para vendedores individuales, negocios registrados y distribuidores.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalogo">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="catalogEyebrow">Descubre Yumora</span>
+          <h2 data-i18n="catalogTitle">Explora el catálogo</h2>
+          <p data-i18n="catalogText">Encuentra inspiración entre productos de ejemplo de distintas categorías.</p>
+        </div>
+
+        <div class="catalog-toolbar">
+          <div class="search-box">
+            <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar productos...">
+          </div>
+          <div style="min-width: 180px;">
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="featured" data-i18n="sortFeatured">Destacados</option>
+              <option value="priceAsc" data-i18n="sortPriceAsc">Precio: menor a mayor</option>
+              <option value="priceDesc" data-i18n="sortPriceDesc">Precio: mayor a menor</option>
+              <option value="name" data-i18n="sortName">Nombre: A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filters" id="categoryFilters">
+          <button class="filter-button active" data-category="all" data-i18n="filterAll">Todos</button>
+          <button class="filter-button" data-category="accessories" data-i18n="filterAccessories">Accesorios</button>
+          <button class="filter-button" data-category="home" data-i18n="filterHome">Hogar</button>
+          <button class="filter-button" data-category="beauty" data-i18n="filterBeauty">Belleza</button>
+          <button class="filter-button" data-category="fashion" data-i18n="filterFashion">Moda</button>
+          <button class="filter-button" data-category="wholesale" data-i18n="filterWholesale">Mayoristas</button>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+
+        <div class="demo-notice" data-i18n="demoCatalogNotice">
+          Importante: estos productos, nombres y precios son ejemplos de demostración.
+          No representan inventario real ni vendedores confirmados.
+        </div>
+      </div>
+    </section>
+
+    <section class="commission-section" id="comisiones">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="commissionEyebrow">Nuestro modelo comercial</span>
+          <h2 data-i18n="commissionTitle">Crecer juntos, con reglas claras</h2>
+          <p data-i18n="commissionText">Yumora no plantea una suscripción mensual para vendedores. El modelo previsto se basa en una comisión por venta.</p>
+        </div>
+
+        <div class="commission-grid">
+          <article class="commission-card">
+            <h3 data-i18n="smallSellerTitle">Pequeños emprendedores</h3>
+            <div class="commission-rate">5%</div>
+            <p data-i18n="smallSellerText">Comisión prevista por cada venta minorista completada.</p>
+            <ul>
+              <li data-i18n="smallBenefit1">Sin cuota mensual de vendedor.</li>
+              <li data-i18n="smallBenefit2">Pensado para emprendimientos individuales y pequeños negocios.</li>
+              <li data-i18n="smallBenefit3">La comisión se descuenta del importe que corresponde al vendedor.</li>
+            </ul>
+          </article>
+
+          <article class="commission-card featured">
+            <h3 data-i18n="wholesaleSellerTitle">Mayoristas y distribuidores</h3>
+            <div class="commission-rate">10%</div>
+            <p data-i18n="wholesaleSellerText">Comisión prevista por cada venta mayorista completada.</p>
+            <ul>
+              <li data-i18n="wholesaleBenefit1">Sin cuota mensual de vendedor.</li>
+              <li data-i18n="wholesaleBenefit2">Pensado para distribuidores y empresas.</li>
+              <li data-i18n="wholesaleBenefit3">La comisión se descuenta del importe que corresponde al vendedor.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="commission-footnote" data-i18n="commissionFootnote">
+          Las tasas mostradas describen el modelo previsto de Yumora. Los cálculos del sitio son ilustrativos;
+          no se está cobrando ninguna comisión real. Los impuestos, costes de procesamiento, devoluciones y
+          condiciones definitivas deberán establecerse antes del lanzamiento comercial.
+        </p>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="stepsEyebrow">Así de sencillo</span>
+          <h2 data-i18n="stepsTitle">Cómo funciona Yumora</h2>
+          <p data-i18n="stepsText">La experiencia prevista para compradores y vendedores.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">1</div>
+            <h3 data-i18n="step1Title">Descubre</h3>
+            <p data-i18n="step1Text">Explora el catálogo, compara productos y encuentra aquello que buscas.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-number">2</div>
+            <h3 data-i18n="step2Title">Conecta</h3>
+            <p data-i18n="step2Text">Los vendedores pueden manifestar su interés y los compradores mayoristas pueden enviar consultas.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-number">3</div>
+            <h3 data-i18n="step3Title">Crece</h3>
+            <p data-i18n="step3Text">La meta es facilitar compras seguras y ventas internacionales con condiciones transparentes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="forms-section" id="vendedores">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="sellerEyebrow">Tu sueño tiene espacio aquí</span>
+          <h2 data-i18n="sellerTitle">Vende en Yumora</h2>
+          <p data-i18n="sellerText">Cuéntanos sobre tu negocio para manifestar tu interés en formar parte del marketplace.</p>
+        </div>
+
+        <div class="forms-grid">
+          <form class="form-card" id="sellerForm">
+            <h3 data-i18n="sellerFormTitle">Registro de interés</h3>
+            <p data-i18n="sellerFormText">Este formulario es una demostración. Todavía no crea una cuenta ni guarda los datos.</p>
+
+            <div class="form-group">
+              <label for="sellerName" data-i18n="labelName">Nombre o nombre comercial</label>
+              <input id="sellerName" name="sellerName" required maxlength="100" autocomplete="name" data-i18n-placeholder="namePlaceholder" placeholder="Tu nombre o negocio">
+            </div>
+
+            <div class="form-group">
+              <label for="sellerEmail" data-i18n="labelEmail">Correo electrónico</label>
+              <input id="sellerEmail" name="sellerEmail" type="email" required maxlength="150" autocomplete="email" placeholder="correo@ejemplo.com">
+            </div>
+
+            <div class="form-group">
+              <label for="sellerCountry" data-i18n="labelCountry">País</label>
+              <input id="sellerCountry" name="sellerCountry" required maxlength="80" autocomplete="country-name" data-i18n-placeholder="countryPlaceholder" placeholder="¿Desde qué país venderías?">
+            </div>
+
+            <div class="form-group">
+              <label for="sellerType" data-i18n="labelSellerType">Tipo de vendedor</label>
+              <select id="sellerType" name="sellerType" required>
+                <option value="" data-i18n="chooseOption">Selecciona una opción</option>
+                <option value="small" data-i18n="sellerTypeSmall">Pequeño emprendimiento — 5%</option>
+                <option value="wholesale" data-i18n="sellerTypeWholesale">Mayorista o distribuidor — 10%</option>
+                <option value="company" data-i18n="sellerTypeCompany">Empresa registrada — sujeto a categoría</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="sellerProducts" data-i18n="labelProducts">¿Qué productos venderías?</label>
+              <textarea id="sellerProducts" name="sellerProducts" required maxlength="1000" data-i18n-placeholder="productsPlaceholder" placeholder="Describe brevemente tus productos"></textarea>
+            </div>
+
+            <button type="submit" class="button button-dark" data-i18n="submitSeller">Enviar interés</button>
+            <div class="form-message" id="sellerMessage" role="status"></div>
+            <div class="form-notice" data-i18n="sellerFormNotice">No incluyas datos bancarios ni información confidencial.</div>
+          </form>
+
+          <div class="form-card" id="mayoristas">
+            <h3 data-i18n="wholesaleFormTitle">¿Buscas comprar al por mayor?</h3>
+            <p data-i18n="wholesaleFormText">Déjanos una consulta de ejemplo para indicar qué productos o volúmenes te interesan.</p>
+
+            <form id="wholesaleForm">
+              <div class="form-group">
+                <label for="buyerName" data-i18n="labelBuyerName">Nombre</label>
+                <input id="buyerName" name="buyerName" required maxlength="100" autocomplete="name" placeholder="Tu nombre">
+              </div>
+
+              <div class="form-group">
+                <label for="buyerEmail" data-i18n="labelEmail">Correo electrónico</label>
+                <input id="buyerEmail" name="buyerEmail" type="email" required maxlength="150" autocomplete="email" placeholder="correo@ejemplo.com">
+              </div>
+
+              <div class="form-group">
+                <label for="buyerCountry" data-i18n="labelCountry">País</label>
+                <input id="buyerCountry" name="buyerCountry" required maxlength="80" autocomplete="country-name" placeholder="Tu país">
+              </div>
+
+              <div class="form-group">
+                <label for="buyerDetails" data-i18n="labelOrderDetails">¿Qué necesitas?</label>
+                <textarea id="buyerDetails" name="buyerDetails" required maxlength="1000" data-i18n-placeholder="orderPlaceholder" placeholder="Producto, cantidad aproximada y detalles"></textarea>
+              </div>
+
+              <button type="submit" class="button button-dark" data-i18n="submitInquiry">Preparar consulta</button>
+              <div class="form-message" id="wholesaleMessage" role="status"></div>
+              <div class="form-notice" data-i18n="wholesaleFormNotice">La consulta no se enviará a un vendedor; esta función es solo una demostración.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="payment-section" id="pagos">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="paymentEyebrow">Pagos</span>
+          <h2 data-i18n="paymentTitle">Una experiencia de compra segura</h2>
+          <p data-i18n="paymentText">PayPal es el método principal previsto, sujeto a aprobación y disponibilidad para el modelo de marketplace de Yumora.</p>
+        </div>
+
+        <div class="payment-panel">
+          <div class="paypal-word">PayPal</div>
+          <p data-i18n="paymentPanelText">La integración de pagos aún no está activa. Antes de cobrar, Yumora deberá contar con una solución aprobada que permita gestionar pagos y liquidaciones a vendedores.</p>
+          <button class="button button-dark" id="paypalButton" type="button" data-i18n="paypalComingSoon">Continuar con PayPal (próximamente)</button>
+          <div class="payment-warning" data-i18n="paymentWarning">
+            Este botón es demostrativo: no abre una transacción, no solicita credenciales y no cobra dinero.
+            La disponibilidad de PayPal depende de la aprobación del modelo comercial, los países y los tipos de vendedores.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preguntas">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="faqEyebrow">Información importante</span>
+          <h2 data-i18n="faqTitle">Preguntas frecuentes</h2>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3 data-i18n="faq1Title">¿Cuánto cuesta vender en Yumora?</h3>
+            <p data-i18n="faq1Text">El modelo previsto no incluye suscripción mensual. La comisión objetivo es del 5% para ventas minoristas de pequeños emprendedores y del 10% para ventas mayoristas.</p>
+          </article>
+          <article class="faq-item">
+            <h3 data-i18n="faq2Title">¿Pueden vender personas y empresas?</h3>
+            <p data-i18n="faq2Text">La plataforma está pensada para ambos perfiles. La incorporación real dependerá de las verificaciones legales y de los requisitos del proveedor de pagos para cada país.</p>
+          </article>
+          <article class="faq-item">
+            <h3 data-i18n="faq3Title">¿Ya puedo comprar y pagar?</h3>
+            <p data-i18n="faq3Text">Todavía no. El catálogo, carrito, comisiones y formularios actuales son demostrativos. No se procesan pagos ni se guardan pedidos reales.</p>
+          </article>
+          <article class="faq-item">
+            <h3 data-i18n="faq4Title">¿Por qué aún no se reciben pagos?</h3>
+            <p data-i18n="faq4Text">Se necesita un backend seguro, una base de datos y una integración de pagos autorizada para gestionar órdenes, comisiones, reembolsos y liquidaciones a vendedores.</p>
+          </article>
+          <article class="faq-item">
+            <h3 data-i18n="faq5Title">¿Y si PayPal no admite un país o vendedor?</h3>
+            <p data-i18n="faq5Text">La cobertura deberá comprobarse antes de incorporar cada país y tipo de vendedor. Yumora podrá evaluar otros proveedores y métodos de pago cuando sea viable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#inicio">
+            <span class="brand-name">YUMORA</span>
+            <span class="brand-subtitle">GLOBAL MARKETPLACE</span>
+          </a>
+          <p data-i18n="footerTagline">Cada sueño merece un lugar para crecer.</p>
+        </div>
+
+        <div class="footer-column">
+          <h3 data-i18n="footerExplore">Explorar</h3>
+          <a href="#catalogo" data-i18n="navCatalog">Explorar</a>
+          <a href="#comisiones" data-i18n="navCommissions">Comisiones</a>
+          <a href="#como-funciona" data-i18n="stepsTitle">Cómo funciona</a>
+        </div>
+
+        <div class="footer-column">
+          <h3 data-i18n="footerJoin">Únete a Yumora</h3>
+          <a href="#vendedores" data-i18n="navSellers">Vender en Yumora</a>
+          <a href="#mayoristas" data-i18n="navWholesale">Mayoristas</a>
+          <a href="#preguntas" data-i18n="faqTitle">Preguntas frecuentes</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="currentYear"></span> Yumora. <span data-i18n="footerRights">Todos los derechos reservados.</span></span>
+        <span data-i18n="footerDemo">Sitio en desarrollo · Catálogo demostrativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="cartBackdrop" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="cart-modal">
+      <div class="modal-header">
+        <h2 id="cartTitle" data-i18n="cartTitle">Tu carrito</h2>
+        <button class="close-modal" id="closeCartButton" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <div class="cart-items" id="cartItems"></div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span data-i18n="subtotal">Subtotal de productos</span>
+          <strong id="cartSubtotal">$0.00</strong>
+        </div>
+        <div class="summary-row">
+          <span data-i18n="commissionEstimate">Comisión estimada de Yumora</span>
+          <strong id="cartCommission">$0.00</strong>
+        </div>
+        <div class="summary-row">
+          <span data-i18n="sellerProceeds">Importe estimado para vendedores</span>
+          <strong id="sellerProceeds">$0.00</strong>
+        </div>
+        <div class="summary-row total">
+          <span data-i18n="total">Total ilustrativo</span>
+          <strong id="cartTotal">$0.00</strong>
+        </div>
+      </div>
+
+      <div class="cart-explainer" data-i18n="cartExplainer">
+        Cálculos ilustrativos en USD. La comisión se muestra como parte del subtotal, no como un cargo adicional al comprador. No hay pagos ni liquidaciones reales activas.
+      </div>
+
+      <button class="button button-dark cart-checkout" id="checkoutButton" type="button" data-i18n="checkoutButton">Continuar con PayPal (próximamente)</button>
     </div>
   </div>
-  <div class="wholesale-card">
-    <h3 data-i18n="inquiryTitle">Consulta mayorista</h3>
-    <form id="wholesale-form" class="form-grid">
-      <input required name="name" placeholder="Tu nombre / Your name">
-      <input required type="email" name="email" placeholder="Correo electrónico / Email">
-      <input required name="product" placeholder="¿Qué producto buscas? / Product">
-      <select name="quantity" required>
-        <option value="" data-i18n="quantity">Cantidad aproximada</option>
-        <option value="10-50">10–50</option>
-        <option value="51-100">51–100</option>
-        <option value="100+">100+</option>
-      </select>
-      <button class="primary" type="submit" data-i18n="sendInquiry">Preparar consulta</button>
-      <div class="notice" data-i18n="demoNotice">Demostración: este formulario no envía datos a un servidor.</div>
-    </form>
-  </div>
-</section>
 
-<section id="seller">
-  <div class="seller">
-    <div>
-      <div class="eyebrow" data-i18n="partner">CRECE CON NOSOTROS</div>
-      <h2 data-i18n="sellerTitle">Tu negocio también tiene un lugar aquí.</h2>
-      <p class="muted" data-i18n="sellerText">¿Eres emprendedor, fabricante, distribuidor o empresa? Registra tu interés para explorar cómo ofrecer tus productos en la plataforma.</p>
-      <p class="muted" data-i18n="sellerNote">En esta etapa, el registro es una demostración. Todavía no crea una cuenta de vendedor.</p>
-    </div>
-    <div class="form-card">
-      <form id="seller-form" class="form-grid">
-        <input required name="business" placeholder="Nombre de tu negocio / Business name">
-        <input required name="contact" placeholder="Persona de contacto / Contact person">
-        <input required type="email" name="email" placeholder="Correo electrónico / Email">
-        <select name="type" required>
-          <option value="" data-i18n="businessType">Tipo de negocio</option>
-          <option value="Emprendimiento">Emprendimiento / Small business</option>
-          <option value="Fabricante">Fabricante / Manufacturer</option>
-          <option value="Distribuidor">Distribuidor / Distributor</option>
-          <option value="Empresa">Empresa / Company</option>
-        </select>
-        <textarea name="products" placeholder="¿Qué productos ofreces? / What do you sell?"></textarea>
-        <button class="primary" type="submit" data-i18n="registerInterest">Registrar interés</button>
-      </form>
-    </div>
-  </div>
-</section>
-</main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="brand">MARKET<span>PLACE</span></div>
-      <p data-i18n="footerText">Conectando productos, personas y oportunidades.</p>
-    </div>
-    <p>© <span id="year"></span> Marketplace Internacional<br>
-    <span data-i18n="footerDemo">Versión inicial de demostración.</span></p>
-  </div>
-</footer>
+  <script>
+    const translations = {
+      es: {
+        announcement: "Un mercado global para sueños que merecen crecer.",
+        navHome: "Inicio",
+        navCatalog: "Explorar",
+        navCommissions: "Comisiones",
+        navSellers: "Vender en Yumora",
+        navWholesale: "Mayoristas",
+        cart: "Carrito",
+        heroEyebrow: "Un mundo de posibilidades",
+        heroTitle: 'Cada sueño merece un lugar para <span>crecer.</span>',
+        heroText: "Descubre productos de emprendedores, marcas y distribuidores. Conecta con oportunidades que cruzan fronteras y lleva tus ideas más lejos.",
+        exploreButton: "Explorar productos",
+        sellButton: "Quiero vender",
+        heroCardText: "Un marketplace creado para conectar ideas, productos y personas en un solo lugar.",
+        statEntrepreneurs: "Emprendedores",
+        statWelcome: "Bienvenidos",
+        statWholesale: "Ventas al por mayor",
+        statAvailable: "Disponibles",
+        statCommission: "Comisiones transparentes",
+        advantagesEyebrow: "La experiencia Yumora",
+        advantagesTitle: "Un lugar para comprar, vender y crecer",
+        advantagesText: "Una propuesta pensada para pequeños emprendimientos, empresas y compradores mayoristas.",
+        advantage1Title: "Talento sin fronteras",
+        advantage1Text: "Una vitrina para descubrir productos de vendedores y marcas de distintos lugares.",
+        advantage2Title: "Comisiones claras",
+        advantage2Text: "Un modelo sencillo: 5% para pequeños emprendedores y 10% para ventas mayoristas.",
+        advantage3Title: "Oportunidades para crecer",
+        advantage3Text: "Espacio para vendedores individuales, negocios registrados y distribuidores.",
+        catalogEyebrow: "Descubre Yumora",
+        catalogTitle: "Explora el catálogo",
+        catalogText: "Encuentra inspiración entre productos de ejemplo de distintas categorías.",
+        searchPlaceholder: "Buscar productos...",
+        sortFeatured: "Destacados",
+        sortPriceAsc: "Precio: menor a mayor",
+        sortPriceDesc: "Precio: mayor a menor",
+        sortName: "Nombre: A-Z",
+        filterAll: "Todos",
+        filterAccessories: "Accesorios",
+        filterHome: "Hogar",
+        filterBeauty: "Belleza",
+        filterFashion: "Moda",
+        filterWholesale: "Mayoristas",
+        demoCatalogNotice: "Importante: estos productos, nombres y precios son ejemplos de demostración. No representan inventario real ni vendedores confirmados.",
+        commissionEyebrow: "Nuestro modelo comercial",
+        commissionTitle: "Crecer juntos, con reglas claras",
+        commissionText: "Yumora no plantea una suscripción mensual para vendedores. El modelo previsto se basa en una comisión por venta.",
+        smallSellerTitle: "Pequeños emprendedores",
+        smallSellerText: "Comisión prevista por cada venta minorista completada.",
+        smallBenefit1: "Sin cuota mensual de vendedor.",
+        smallBenefit2: "Pensado para emprendimientos individuales y pequeños negocios.",
+        smallBenefit3: "La comisión se descuenta del importe que corresponde al vendedor.",
+        wholesaleSellerTitle: "Mayoristas y distribuidores",
+        wholesaleSellerText: "Comisión prevista por cada venta mayorista completada.",
+        wholesaleBenefit1: "Sin cuota mensual de vendedor.",
+        wholesaleBenefit2: "Pensado para distribuidores y empresas.",
+        wholesaleBenefit3: "La comisión se descuenta del importe que corresponde al vendedor.",
+        commissionFootnote: "Las tasas mostradas describen el modelo previsto de Yumora. Los cálculos del sitio son ilustrativos; no se está cobrando ninguna comisión real. Los impuestos, costes de procesamiento, devoluciones y condiciones definitivas deberán establecerse antes del lanzamiento comercial.",
+        stepsEyebrow: "Así de sencillo",
+        stepsTitle: "Cómo funciona Yumora",
+        stepsText: "La experiencia prevista para compradores y vendedores.",
+        step1Title: "Descubre",
+        step1Text: "Explora el catálogo, compara productos y encuentra aquello que buscas.",
+        step2Title: "Conecta",
+        step2Text: "Los vendedores pueden manifestar su interés y los compradores mayoristas pueden enviar consultas.",
+        step3Title: "Crece",
+        step3Text: "La meta es facilitar compras seguras y ventas internacionales con condiciones transparentes.",
+        sellerEyebrow: "Tu sueño tiene espacio aquí",
+        sellerTitle: "Vende en Yumora",
+        sellerText: "Cuéntanos sobre tu negocio para manifestar tu interés en formar parte del marketplace.",
+        sellerFormTitle: "Registro de interés",
+        sellerFormText: "Este formulario es una demostración. Todavía no crea una cuenta ni guarda los datos.",
+        labelName: "Nombre o nombre comercial",
+        namePlaceholder: "Tu nombre o negocio",
+        labelEmail: "Correo electrónico",
+        labelCountry: "País",
+        countryPlaceholder: "¿Desde qué país venderías?",
+        labelSellerType: "Tipo de vendedor",
+        chooseOption: "Selecciona una opción",
+        sellerTypeSmall: "Pequeño emprendimiento — 5%",
+        sellerTypeWholesale: "Mayorista o distribuidor — 10%",
+        sellerTypeCompany: "Empresa registrada — sujeto a categoría",
+        labelProducts: "¿Qué productos venderías?",
+        productsPlaceholder: "Describe brevemente tus productos",
+        submitSeller: "Enviar interés",
+        sellerFormNotice: "No incluyas datos bancarios ni información confidencial.",
+        wholesaleFormTitle: "¿Buscas comprar al por mayor?",
+        wholesaleFormText: "Déjanos una consulta de ejemplo para indicar qué productos o volúmenes te interesan.",
+        labelBuyerName: "Nombre",
+        labelOrderDetails: "¿Qué necesitas?",
+        orderPlaceholder: "Producto, cantidad aproximada y detalles",
+        submitInquiry: "Preparar consulta",
+        wholesaleFormNotice: "La consulta no se enviará a un vendedor; esta función es solo una demostración.",
+        paymentEyebrow: "Pagos",
+        paymentTitle: "Una experiencia de compra segura",
+        paymentText: "PayPal es el método principal previsto, sujeto a aprobación y disponibilidad para el modelo de marketplace de Yumora.",
+        paymentPanelText: "La integración de pagos aún no está activa. Antes de cobrar, Yumora deberá contar con una solución aprobada que permita gestionar pagos y liquidaciones a vendedores.",
+        paypalComingSoon: "Continuar con PayPal (próximamente)",
+        paymentWarning: "Este botón es demostrativo: no abre una transacción, no solicita credenciales y no cobra dinero. La disponibilidad de PayPal depende de la aprobación del modelo comercial, los países y los tipos de vendedores.",
+        faqEyebrow: "Información importante",
+        faqTitle: "Preguntas frecuentes",
+        faq1Title: "¿Cuánto cuesta vender en Yumora?",
+        faq1Text: "El modelo previsto no incluye suscripción mensual. La comisión objetivo es del 5% para ventas minoristas de pequeños emprendedores y del 10% para ventas mayoristas.",
+        faq2Title: "¿Pueden vender personas y empresas?",
+        faq2Text: "La plataforma está pensada para ambos perfiles. La incorporación real dependerá de las verificaciones legales y de los requisitos del proveedor de pagos para cada país.",
+        faq3Title: "¿Ya puedo comprar y pagar?",
+        faq3Text: "Todavía no. El catálogo, carrito, comisiones y formularios actuales son demostrativos. No se procesan pagos ni se guardan pedidos reales.",
+        faq4Title: "¿Por qué aún no se reciben pagos?",
+        faq4Text: "Se necesita un backend seguro, una base de datos y una integración de pagos autorizada para gestionar órdenes, comisiones, reembolsos y liquidaciones a vendedores.",
+        faq5Title: "¿Y si PayPal no admite un país o vendedor?",
+        faq5Text: "La cobertura deberá comprobarse antes de incorporar cada país y tipo de vendedor. Yumora podrá evaluar otros proveedores y métodos de pago cuando sea viable.",
+        footerTagline: "Cada sueño merece un lugar para crecer.",
+        footerExplore: "Explorar",
+        footerJoin: "Únete a Yumora",
+        footerRights: "Todos los derechos reservados.",
+        footerDemo: "Sitio en desarrollo · Catálogo demostrativo",
+        cartTitle: "Tu carrito",
+        subtotal: "Subtotal de productos",
+        commissionEstimate: "Comisión estimada de Yumora",
+        sellerProceeds: "Importe estimado para vendedores",
+        total: "Total ilustrativo",
+        cartExplainer: "Cálculos ilustrativos en USD. La comisión se muestra como parte del subtotal, no como un cargo adicional al comprador. No hay pagos ni liquidaciones reales activas.",
+        checkoutButton: "Continuar con PayPal (próximamente)",
+        addToCart: "Añadir al carrito",
+        addedToCart: "Producto añadido al carrito.",
+        emptyCart: "Tu carrito está vacío.",
+        emptyResults: "No encontramos productos con esa búsqueda.",
+        remove: "Eliminar",
+        quantity: "Cantidad",
+        smallSeller: "Pequeño emprendimiento",
+        wholesaleSeller: "Mayorista",
+        commissionLabel: "Comisión estimada",
+        sellerFormSuccess: "Formulario de demostración validado. Los datos no se han enviado ni guardado.",
+        wholesaleFormSuccess: "Consulta de demostración preparada. No se ha enviado a ningún vendedor.",
+        paypalNotice: "Los pagos de Yumora todavía no están habilitados. No se ha realizado ningún cobro."
+      },
+      en: {
+        announcement: "A global marketplace for dreams that deserve to grow.",
+        navHome: "Home",
+        navCatalog: "Explore",
+        navCommissions: "Commissions",
+        navSellers: "Sell on Yumora",
+        navWholesale: "Wholesale",
+        cart: "Cart",
+        heroEyebrow: "A world of possibilities",
+        heroTitle: 'Every dream deserves a place to <span>grow.</span>',
+        heroText: "Discover products from entrepreneurs, brands, and distributors. Connect with opportunities across borders and take your ideas further.",
+        exploreButton: "Explore products",
+        sellButton: "Start selling",
+        heroCardText: "A marketplace created to connect ideas, products, and people in one place.",
+        statEntrepreneurs: "Entrepreneurs",
+        statWelcome: "Welcome",
+        statWholesale: "Wholesale sales",
+        statAvailable: "Available",
+        statCommission: "Transparent commissions",
+        advantagesEyebrow: "The Yumora experience",
+        advantagesTitle: "A place to buy, sell, and grow",
+        advantagesText: "Designed for small businesses, companies, and wholesale buyers.",
+        advantage1Title: "Talent without borders",
+        advantage1Text: "Discover products from sellers and brands in different places.",
+        advantage2Title: "Clear commissions",
+        advantage2Text: "A simple model: 5% for small entrepreneurs and 10% for wholesale sales.",
+        advantage3Title: "Opportunities to grow",
+        advantage3Text: "A space for individual sellers, registered businesses, and distributors.",
+        catalogEyebrow: "Discover Yumora",
+        catalogTitle: "Explore the catalog",
+        catalogText: "Find inspiration among sample products in different categories.",
+        searchPlaceholder: "Search products...",
+        sortFeatured: "Featured",
+        sortPriceAsc: "Price: low to high",
+        sortPriceDesc: "Price: high to low",
+        sortName: "Name: A-Z",
+        filterAll: "All",
+        filterAccessories: "Accessories",
+        filterHome: "Home",
+        filterBeauty: "Beauty",
+        filterFashion: "Fashion",
+        filterWholesale: "Wholesale",
+        demoCatalogNotice: "Important: these products, names, and prices are demo examples. They do not represent real inventory or confirmed sellers.",
+        commissionEyebrow: "Our business model",
+        commissionTitle: "Growing together, with clear rules",
+        commissionText: "Yumora does not plan a monthly seller subscription. The proposed model is based on a commission per sale.",
+        smallSellerTitle: "Small entrepreneurs",
+        smallSellerText: "Proposed commission on each completed retail sale.",
+        smallBenefit1: "No monthly seller fee.",
+        smallBenefit2: "Designed for individual entrepreneurs and small businesses.",
+        smallBenefit3: "The commission is deducted from the seller's proceeds.",
+        wholesaleSellerTitle: "Wholesalers and distributors",
+        wholesaleSellerText: "Proposed commission on each completed wholesale sale.",
+        wholesaleBenefit1: "No monthly seller fee.",
+        wholesaleBenefit2: "Designed for distributors and companies.",
+        wholesaleBenefit3: "The commission is deducted from the seller's proceeds.",
+        commissionFootnote: "The rates shown describe Yumora's proposed model. Website calculations are illustrative; no actual commission is charged. Taxes, processing fees, refunds, and final terms must be established before commercial launch.",
+        stepsEyebrow: "It's that simple",
+        stepsTitle: "How Yumora works",
+        stepsText: "The intended experience for buyers and sellers.",
+        step1Title: "Discover",
+        step1Text: "Explore the catalog, compare products, and find what you need.",
+        step2Title: "Connect",
+        step2Text: "Sellers can express interest and wholesale buyers can submit inquiries.",
+        step3Title: "Grow",
+        step3Text: "The goal is to facilitate secure purchases and international sales with transparent terms.",
+        sellerEyebrow: "Your dream has a place here",
+        sellerTitle: "Sell on Yumora",
+        sellerText: "Tell us about your business to express interest in joining the marketplace.",
+        sellerFormTitle: "Seller interest",
+        sellerFormText: "This form is a demo. It does not create an account or save your details.",
+        labelName: "Name or business name",
+        namePlaceholder: "Your name or business",
+        labelEmail: "Email address",
+        labelCountry: "Country",
+        countryPlaceholder: "Which country would you sell from?",
+        labelSellerType: "Seller type",
+        chooseOption: "Choose an option",
+        sellerTypeSmall: "Small business — 5%",
+        sellerTypeWholesale: "Wholesaler or distributor — 10%",
+        sellerTypeCompany: "Registered company — category dependent",
+        labelProducts: "What products would you sell?",
+        productsPlaceholder: "Briefly describe your products",
+        submitSeller: "Submit interest",
+        sellerFormNotice: "Do not include bank details or confidential information.",
+        wholesaleFormTitle: "Looking to buy wholesale?",
+        wholesaleFormText: "Use this sample inquiry to describe the products or volumes you need.",
+        labelBuyerName: "Name",
+        labelOrderDetails: "What do you need?",
+        orderPlaceholder: "Product, approximate quantity, and details",
+        submitInquiry: "Prepare inquiry",
+        wholesaleFormNotice: "The inquiry will not be sent to a seller; this feature is only a demo.",
+        paymentEyebrow: "Payments",
+        paymentTitle: "A secure shopping experience",
+        paymentText: "PayPal is the planned primary payment method, subject to approval and availability for Yumora's marketplace model.",
+        paymentPanelText: "Payments are not active yet. Before accepting payments, Yumora will need an approved solution to manage payments and seller payouts.",
+        paypalComingSoon: "Continue with PayPal (coming soon)",
+        paymentWarning: "This is a demo button: it does not start a transaction, request credentials, or charge money. PayPal availability depends on approval of the business model, countries, and seller types.",
+        faqEyebrow: "Important information",
+        faqTitle: "Frequently asked questions",
+        faq1Title: "How much does it cost to sell on Yumora?",
+        faq1Text: "The proposed model has no monthly subscription. The target commission is 5% for small entrepreneurs' retail sales and 10% for wholesale sales.",
+        faq2Title: "Can individuals and companies sell?",
+        faq2Text: "The platform is designed for both. Actual onboarding depends on legal verification and payment-provider requirements in each country.",
+        faq3Title: "Can I buy and pay now?",
+        faq3Text: "Not yet. The current catalog, cart, commissions, and forms are demos. No payments are processed and no real orders are saved.",
+        faq4Title: "Why can't I pay yet?",
+        faq4Text: "A secure backend, database, and authorized payment integration are needed to manage orders, commissions, refunds, and seller payouts.",
+        faq5Title: "What if PayPal does not support a country or seller?",
+        faq5Text: "Coverage must be checked before onboarding each country and seller type. Yumora can evaluate other providers and payment methods when feasible.",
+        footerTagline: "Every dream deserves a place to grow.",
+        footerExplore: "Explore",
+        footerJoin: "Join Yumora",
+        footerRights: "All rights reserved.",
+        footerDemo: "Site under development · Demo catalog",
+        cartTitle: "Your cart",
+        subtotal: "Product subtotal",
+        commissionEstimate: "Estimated Yumora commission",
+        sellerProceeds: "Estimated seller proceeds",
+        total: "Illustrative total",
+        cartExplainer: "Illustrative calculations in USD. The commission is shown as part of the subtotal, not as an extra buyer charge. No real payments or payouts are active.",
+        checkoutButton: "Continue with PayPal (coming soon)",
+        addToCart: "Add to cart",
+        addedToCart: "Product added to cart.",
+        emptyCart: "Your cart is empty.",
+        emptyResults: "No products matched your search.",
+        remove: "Remove",
+        quantity: "Quantity",
+        smallSeller: "Small entrepreneur",
+        wholesaleSeller: "Wholesaler",
+        commissionLabel: "Estimated commission",
+        sellerFormSuccess: "Demo form validated. Your details have not been sent or saved.",
+        wholesaleFormSuccess: "Demo inquiry prepared. It has not been sent to any seller.",
+        paypalNotice: "Yumora payments are not enabled yet. No charge has been made."
+      }
+    };
 
-<script>
-const products = [
- {id:1,icon:"🎧",nameEs:"Auriculares inalámbricos",nameEn:"Wireless headphones",cat:"electronics",price:29.90},
- {id:2,icon:"👜",nameEs:"Bolso contemporáneo",nameEn:"Contemporary handbag",cat:"fashion",price:42.00},
- {id:3,icon:"🧴",nameEs:"Cuidado personal",nameEn:"Personal care",cat:"beauty",price:18.50},
- {id:4,icon:"⌨️",nameEs:"Teclado compacto",nameEn:"Compact keyboard",cat:"electronics",price:35.00},
- {id:5,icon:"🥤",nameEs:"Botella reutilizable",nameEn:"Reusable bottle",cat:"home",price:14.90},
- {id:6,icon:"🕶️",nameEs:"Gafas modernas",nameEn:"Modern sunglasses",cat:"fashion",price:24.00},
- {id:7,icon:"🕯️",nameEs:"Vela decorativa",nameEn:"Decorative candle",cat:"home",price:12.50},
- {id:8,icon:"🧼",nameEs:"Set de cuidado",nameEn:"Care set",cat:"beauty",price:21.00}
-];
+    const products = [
+      {
+        id: 1,
+        name: { es: "Bolso artesanal", en: "Handcrafted bag" },
+        category: "accessories",
+        categoryLabel: { es: "Accesorios", en: "Accessories" },
+        description: {
+          es: "Un bolso de ejemplo con estilo artesanal y detalles únicos.",
+          en: "A sample bag with handcrafted style and unique details."
+        },
+        price: 28,
+        icon: "👜",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 2,
+        name: { es: "Vela aromática", en: "Scented candle" },
+        category: "home",
+        categoryLabel: { es: "Hogar", en: "Home" },
+        description: {
+          es: "Una vela de ejemplo para crear ambientes acogedores.",
+          en: "A sample candle for creating a cozy atmosphere."
+        },
+        price: 16,
+        icon: "🕯️",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 3,
+        name: { es: "Kit de cuidado facial", en: "Facial care set" },
+        category: "beauty",
+        categoryLabel: { es: "Belleza", en: "Beauty" },
+        description: {
+          es: "Un kit de ejemplo para una rutina de cuidado personal.",
+          en: "A sample set for a personal care routine."
+        },
+        price: 35,
+        icon: "🧴",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 4,
+        name: { es: "Bufanda de temporada", en: "Seasonal scarf" },
+        category: "fashion",
+        categoryLabel: { es: "Moda", en: "Fashion" },
+        description: {
+          es: "Un accesorio de ejemplo para complementar tu estilo.",
+          en: "A sample accessory to complement your style."
+        },
+        price: 22,
+        icon: "🧣",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 5,
+        name: { es: "Set de tazas", en: "Mug set" },
+        category: "home",
+        categoryLabel: { es: "Hogar", en: "Home" },
+        description: {
+          es: "Un conjunto de ejemplo pensado para el hogar.",
+          en: "A sample set designed for the home."
+        },
+        price: 30,
+        icon: "☕",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 6,
+        name: { es: "Accesorios minimalistas", en: "Minimalist accessories" },
+        category: "accessories",
+        categoryLabel: { es: "Accesorios", en: "Accessories" },
+        description: {
+          es: "Piezas de ejemplo con un diseño sencillo y versátil.",
+          en: "Sample pieces with a simple, versatile design."
+        },
+        price: 19,
+        icon: "💍",
+        sellerType: "small",
+        tag: { es: "Emprendimiento", en: "Small business" }
+      },
+      {
+        id: 7,
+        name: { es: "Lote de camisetas", en: "T-shirt bulk lot" },
+        category: "wholesale",
+        categoryLabel: { es: "Mayoristas", en: "Wholesale" },
+        description: {
+          es: "Ejemplo de oferta por volumen para compradores mayoristas.",
+          en: "Sample bulk offer for wholesale buyers."
+        },
+        price: 180,
+        icon: "👕",
+        sellerType: "wholesale",
+        tag: { es: "Venta mayorista", en: "Wholesale" }
+      },
+      {
+        id: 8,
+        name: { es: "Caja de productos de belleza", en: "Beauty products box" },
+        category: "wholesale",
+        categoryLabel: { es: "Mayoristas", en: "Wholesale" },
+        description: {
+          es: "Ejemplo de caja por volumen para negocios y distribuidores.",
+          en: "Sample bulk box for businesses and distributors."
+        },
+        price: 240,
+        icon: "📦",
+        sellerType: "wholesale",
+        tag: { es: "Venta mayorista", en: "Wholesale" }
+      }
+    ];
 
-const translations = {
- es:{
-  navShop:"Comprar",navWholesale:"Mayoristas",navSell:"Vender",
-  eyebrow:"COMERCIO SIN FRONTERAS",heroTitle:"Descubre productos. Conecta oportunidades.",
-  heroText:"Un espacio para descubrir productos, conectar con proveedores y hacer crecer negocios más allá de las fronteras.",
-  explore:"Explorar catálogo →",collection:"LA COLECCIÓN",catalogTitle:"Explora el catálogo",
-  catalogText:"Productos seleccionados para diferentes necesidades.",search:"Buscar productos...",
-  all:"Todos",electronics:"Electrónica",fashion:"Moda",beauty:"Belleza",home:"Hogar",
-  add:"Añadir al carrito",business:"PARA TU NEGOCIO",wholesaleTitle:"¿Compras al por mayor?",
-  wholesaleText:"Conecta con vendedores y consulta opciones para compras por volumen. Las condiciones se acuerdan directamente entre las partes.",
-  stat1:"Encuentra productos",stat2:"Contacta proveedores",stat3:"Explora oportunidades",
-  inquiryTitle:"Consulta mayorista",quantity:"Cantidad aproximada",
-  sendInquiry:"Preparar consulta",demoNotice:"Demostración: este formulario no envía datos a un servidor.",
-  partner:"CRECE CON NOSOTROS",sellerTitle:"Tu negocio también tiene un lugar aquí.",
-  sellerText:"¿Eres emprendedor, fabricante, distribuidor o empresa? Registra tu interés para explorar cómo ofrecer tus productos en la plataforma.",
-  sellerNote:"En esta etapa, el registro es una demostración. Todavía no crea una cuenta de vendedor.",
-  businessType:"Tipo de negocio",registerInterest:"Registrar interés",
-  footerText:"Conectando productos, personas y oportunidades.",footerDemo:"Versión inicial de demostración.",
-  cart:"Carrito",empty:"No hay productos que coincidan con tu búsqueda.",
-  added:"Producto añadido al carrito de demostración.",cartEmpty:"Tu carrito está vacío.",
-  cartContents:"Tu carrito",total:"Total estimado",checkout:"Esta demostración no procesa pagos.",
-  prepared:"Tu consulta de demostración está preparada, pero no se ha enviado a nadie.",
-  sellerPrepared:"Tu registro de demostración está preparado, pero no se ha enviado a nadie."
- },
- en:{
-  navShop:"Shop",navWholesale:"Wholesale",navSell:"Sell",
-  eyebrow:"COMMERCE WITHOUT BORDERS",heroTitle:"Discover products. Connect opportunities.",
-  heroText:"A place to discover products, connect with suppliers and grow businesses across borders.",
-  explore:"Explore catalog →",collection:"THE COLLECTION",catalogTitle:"Explore the catalog",
-  catalogText:"Selected products for different needs.",search:"Search products...",
-  all:"All",electronics:"Electronics",fashion:"Fashion",beauty:"Beauty",home:"Home",
-  add:"Add to cart",business:"FOR YOUR BUSINESS",wholesaleTitle:"Buying wholesale?",
-  wholesaleText:"Connect with sellers and explore bulk purchasing options. Terms are agreed directly between the parties.",
-  stat1:"Find products",stat2:"Contact suppliers",stat3:"Explore opportunities",
-  inquiryTitle:"Wholesale inquiry",quantity:"Estimated quantity",
-  sendInquiry:"Prepare inquiry",demoNotice:"Demo: this form does not send data to a server.",
-  partner:"GROW WITH US",sellerTitle:"Your business belongs here, too.",
-  sellerText:"Are you an entrepreneur, manufacturer, distributor or company? Register your interest in offering products on the platform.",
-  sellerNote:"At this stage, registration is a demo. It does not create a seller account.",
-  businessType:"Business type",registerInterest:"Register interest",
-  footerText:"Connecting products, people and opportunities.",footerDemo:"Initial demo version.",
-  cart:"Cart",empty:"No products match your search.",
-  added:"Product added to the demo cart.",cartEmpty:"Your cart is empty.",
-  cartContents:"Your cart",total:"Estimated total",checkout:"This demo does not process payments.",
-  prepared:"Your demo inquiry is prepared, but has not been sent to anyone.",
-  sellerPrepared:"Your demo registration is prepared, but has not been sent to anyone."
- }
-};
+    let currentLanguage = "es";
+    let activeCategory = "all";
+    let cart = [];
 
-let lang = "es";
-let category = "all";
-let cart = [];
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => [...document.querySelectorAll(selector)];
 
-function t(key){return translations[lang][key] || key}
-function money(value){
- return new Intl.NumberFormat(lang==="es"?"es-CR":"en-US",
- {style:"currency",currency:"USD"}).format(value);
-}
-function renderFilters(){
- const cats=["all","electronics","fashion","beauty","home"];
- document.getElementById("filters").innerHTML=cats.map(c=>
- `<button class="filter ${category===c?"active":""}" data-cat="${c}">${t(c)}</button>`
- ).join("");
- document.querySelectorAll("[data-cat]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-   category=btn.dataset.cat;renderFilters();renderProducts();
-  });
- });
-}
-function renderProducts(){
- const query=document.getElementById("search").value.trim().toLowerCase();
- const filtered=products.filter(p=>{
-  const name=lang==="es"?p.nameEs:p.nameEn;
-  return (category==="all"||p.cat===category) &&
-   (name.toLowerCase().includes(query)||t(p.cat).toLowerCase().includes(query));
- });
- document.getElementById("products").innerHTML=filtered.length?filtered.map(p=>`
-  <article class="product">
-   <div class="product-art">${p.icon}</div>
-   <div class="product-body">
-    <div class="category">${t(p.cat)}</div>
-    <h3>${lang==="es"?p.nameEs:p.nameEn}</h3>
-    <div class="price">${money(p.price)}</div>
-    <button class="primary" data-add="${p.id}">${t("add")}</button>
-   </div>
-  </article>`).join(""):`<div class="empty">${t("empty")}</div>`;
- document.querySelectorAll("[data-add]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-   cart.push(Number(btn.dataset.add));updateCart();
-   alert(t("added"));
-  });
- });
-}
-function updateCart(){
- document.getElementById("cart-count").textContent=cart.length;
-}
-function showCart(){
- if(!cart.length){alert(t("cartEmpty"));return}
- const total=cart.reduce((sum,id)=>sum+products.find(p=>p.id===id).price,0);
- const names=cart.map(id=>{
-  const p=products.find(x=>x.id===id);
-  return (lang==="es"?p.nameEs:p.nameEn);
- });
- alert(t("cartContents")+":\n"+names.join("\n")+"\n\n"+t("total")+": "+money(total)+"\n\n"+t("checkout"));
-}
-function applyLanguage(){
- document.documentElement.lang=lang;
- document.querySelectorAll("[data-i18n]").forEach(el=>{
-  const key=el.dataset.i18n;
-  if(translations[lang][key])el.textContent=translations[lang][key];
- });
- document.getElementById("search").placeholder=t("search");
- document.getElementById("cart-label").textContent=t("cart");
- document.getElementById("announcement").textContent=lang==="es"
-  ?"UN MERCADO · MÚLTIPLES OPORTUNIDADES · ALCANCE INTERNACIONAL"
-  :"ONE MARKETPLACE · MANY OPPORTUNITIES · GLOBAL REACH";
- renderFilters();renderProducts();
-}
-document.getElementById("language").addEventListener("change",e=>{
- lang=e.target.value;applyLanguage();
-});
-document.getElementById("search").addEventListener("input",renderProducts);
+    function t(key) {
+      return translations[currentLanguage][key] || key;
+    }
 
-document.getElementById("wholesale-form").addEventListener("submit",e=>{
- e.preventDefault();alert(t("prepared"));
-});
-document.getElementById("seller-form").addEventListener("submit",e=>{
- e.preventDefault();alert(t("sellerPrepared"));
-});
-document.getElementById("year").textContent=new Date().getFullYear();
-applyLanguage();
-</script>
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function formatMoney(value) {
+      return new Intl.NumberFormat(
+        currentLanguage === "es" ? "es-CR" : "en-US",
+        {
+          style: "currency",
+          currency: "USD"
+        }
+      ).format(value);
+    }
+
+    function getCommissionRate(product) {
+      return product.sellerType === "wholesale" ? 0.10 : 0.05;
+    }
+
+    function getSellerTypeLabel(product) {
+      return product.sellerType === "wholesale"
+        ? t("wholesaleSeller")
+        : t("smallSeller");
+    }
+
+    function renderStaticTranslations() {
+      $$("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (translations[currentLanguage][key] !== undefined) {
+          element.innerHTML = translations[currentLanguage][key];
+        }
+      });
+
+      $$("[data-i18n-placeholder]").forEach((element) => {
+        const key = element.dataset.i18nPlaceholder;
+        if (translations[currentLanguage][key] !== undefined) {
+          element.placeholder = translations[currentLanguage][key];
+        }
+      });
+
+      $("#languageButton").textContent = currentLanguage === "es" ? "EN" : "ES";
+      document.documentElement.lang = currentLanguage;
+      document.title = currentLanguage === "es"
+        ? "Yumora | Global Marketplace"
+        : "Yumora | Global Marketplace";
+
+      $("#currentYear").textContent = new Date().getFullYear();
+    }
+
+    function renderProducts() {
+      const searchTerm = $("#searchInput").value.trim().toLocaleLowerCase();
+      const sortBy = $("#sortSelect").value;
+
+      let filtered = products.filter((product) => {
+        const matchesCategory =
+          activeCategory === "all" ||
+          product.category === activeCategory;
+
+        const searchableText = [
+          product.name[currentLanguage],
+          product.categoryLabel[currentLanguage],
+          product.description[currentLanguage],
+          product.tag[currentLanguage]
+        ].join(" ").toLocaleLowerCase();
+
+        return matchesCategory && searchableText.includes(searchTerm);
+      });
+
+      if (sortBy === "priceAsc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "priceDesc") {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sortBy === "name") {
+        filtered.sort((a, b) =>
+          a.name[currentLanguage].localeCompare(b.name[currentLanguage])
+        );
+      }
+
+      const grid = $("#productGrid");
+
+      if (!filtered.length) {
+        grid.innerHTML = `
+          <div class="empty-state">${escapeHTML(t("emptyResults"))}</div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map((product) => {
+        const rate = getCommissionRate(product);
+        const commission = product.price * rate;
+
+        return `
+          <article class="product-card">
+            <div class="product-image">
+              <span class="product-tag">${escapeHTML(product.tag[currentLanguage])}</span>
+              <span aria-hidden="true">${product.icon}</span>
+            </div>
+            <div class="product-content">
+              <div class="product-category">${escapeHTML(product.categoryLabel[currentLanguage])}</div>
+              <h3>${escapeHTML(product.name[currentLanguage])}</h3>
+              <p class="product-description">${escapeHTML(product.description[currentLanguage])}</p>
+              <div class="product-price">${formatMoney(product.price)}</div>
+              <p class="commission-note">
+                ${escapeHTML(t("commissionLabel"))}: ${formatMoney(commission)}
+                (${Math.round(rate * 100)}%)
+              </p>
+              <button class="button button-dark" type="button" data-add-product="${product.id}">
+                ${escapeHTML(t("addToCart"))}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      if (showToast.timeout) {
+        clearTimeout(showToast.timeout);
+      }
+
+      showToast.timeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function addToCart(productId) {
+      const product = products.find((item) => item.id === productId);
+      if (!product) return;
+
+      const existingItem = cart.find((item) => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+
+      renderCart();
+      showToast(t("addedToCart"));
+    }
+
+    function changeQuantity(productId, change) {
+      const item = cart.find((entry) => entry.id === productId);
+      if (!item) return;
+
+      item.quantity += change;
+
+      if (item.quantity <= 0) {
+        cart = cart.filter((entry) => entry.id !== productId);
+      }
+
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter((item) => item.id !== productId);
+      renderCart();
+    }
+
+    function calculateCart() {
+      let subtotal = 0;
+      let commission = 0;
+
+      cart.forEach((item) => {
+        const product = products.find((entry) => entry.id === item.id);
+        if (!product) return;
+
+        const lineTotal = product.price * item.quantity;
+        subtotal += lineTotal;
+        commission += lineTotal * getCommissionRate(product);
+      });
+
+      return {
+        subtotal,
+        commission,
+        sellerProceeds: subtotal - commission
+      };
+    }
+
+    function renderCart() {
+      const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+      $("#cartCount").textContent = totalQuantity;
+
+      const cartItems = $("#cartItems");
+
+      if (!cart.length) {
+        cartItems.innerHTML = `
+          <div class="empty-state">${escapeHTML(t("emptyCart"))}</div>
+        `;
+      } else {
+        cartItems.innerHTML = cart.map((item) => {
+          const product = products.find((entry) => entry.id === item.id);
+          if (!product) return "";
+
+          const lineTotal = product.price * item.quantity;
+
+          return `
+            <div class="cart-item">
+              <div>
+                <h3>${product.icon} ${escapeHTML(product.name[currentLanguage])}</h3>
+                <p>${escapeHTML(getSellerTypeLabel(product))}</p>
+                <div class="quantity-controls">
+                  <button type="button" data-quantity="${product.id}" data-change="-1" aria-label="Decrease quantity">−</button>
+                  <span>${t("quantity")}: ${item.quantity}</span>
+                  <button type="button" data-quantity="${product.id}" data-change="1" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+              <div class="cart-item-price">
+                ${formatMoney(lineTotal)}
+                <br>
+                <button type="button" class="remove-item" data-remove="${product.id}">
+                  ${escapeHTML(t("remove"))}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      const totals = calculateCart();
+
+      $("#cartSubtotal").textContent = formatMoney(totals.subtotal);
+      $("#cartCommission").textContent = formatMoney(totals.commission);
+      $("#sellerProceeds").textContent = formatMoney(totals.sellerProceeds);
+      $("#cartTotal").textContent = formatMoney(totals.subtotal);
+    }
+
+    function openCart() {
+      $("#cartBackdrop").classList.add("open");
+      document.body.classList.add("no-scroll");
+      $("#closeCartButton").focus();
+    }
+
+    function closeCart() {
+      $("#cartBackdrop").classList.remove("open");
+      document.body.classList.remove("no-scroll");
+    }
+
+    function switchLanguage() {
+      currentLanguage = currentLanguage === "es" ? "en" : "es";
+      renderStaticTranslations();
+      renderProducts();
+      renderCart();
+
+      $$(".filter-button").forEach((button) => {
+        const keyMap = {
+          all: "filterAll",
+          accessories: "filterAccessories",
+          home: "filterHome",
+          beauty: "filterBeauty",
+          fashion: "filterFashion",
+          wholesale: "filterWholesale"
+        };
+
+        button.textContent = t(keyMap[button.dataset.category]);
+      });
+    }
+
+    $("#languageButton").addEventListener("click", switchLanguage);
+
+    $("#menuButton").addEventListener("click", () => {
+      const nav = $("#navLinks");
+      nav.classList.toggle("open");
+
+      $("#menuButton").setAttribute(
+        "aria-expanded",
+        String(nav.classList.contains("open"))
+      );
+    });
+
+    $("#navLinks").addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        $("#navLinks").classList.remove("open");
+        $("#menuButton").setAttribute("aria-expanded", "false");
+      }
+    });
+
+    $("#searchInput").addEventListener("input", renderProducts);
+    $("#sortSelect").addEventListener("change", renderProducts);
+
+    $("#categoryFilters").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+
+      activeCategory = button.dataset.category;
+
+      $$(".filter-button").forEach((item) => {
+        item.classList.toggle("active", item === button);
+      });
+
+      renderProducts();
+    });
+
+    $("#productGrid").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-add-product]");
+      if (!button) return;
+
+      addToCart(Number(button.dataset.addProduct));
+    });
+
+    $("#cartButton").addEventListener("click", openCart);
+    $("#closeCartButton").addEventListener("click", closeCart);
+
+    $("#cartBackdrop").addEventListener("click", (event) => {
+      if (event.target === $("#cartBackdrop")) {
+        closeCart();
+      }
+    });
+
+    $("#cartItems").addEventListener("click", (event) => {
+      const quantityButton = event.target.closest("[data-quantity]");
+      const removeButton = event.target.closest("[data-remove]");
+
+      if (quantityButton) {
+        changeQuantity(
+          Number(quantityButton.dataset.quantity),
+          Number(quantityButton.dataset.change)
+        );
+      }
+
+      if (removeButton) {
+        removeFromCart(Number(removeButton.dataset.remove));
+      }
+    });
+
+    $("#checkoutButton").addEventListener("click", () => {
+      showToast(t("paypalNotice"));
+    });
+
+    $("#paypalButton").addEventListener("click", () => {
+      showToast(t("paypalNotice"));
+    });
+
+    $("#sellerForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const message = $("#sellerMessage");
+      message.textContent = t("sellerFormSuccess");
+      message.classList.add("visible");
+
+      $("#sellerForm").reset();
+    });
+
+    $("#wholesaleForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const message = $("#wholesaleMessage");
+      message.textContent = t("wholesaleFormSuccess");
+      message.classList.add("visible");
+
+      $("#wholesaleForm").reset();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeCart();
+        $("#navLinks").classList.remove("open");
+      }
+    });
+
+    renderStaticTranslations();
+    renderProducts();
+    renderCart();
+  </script>
 </body>
 </html>
