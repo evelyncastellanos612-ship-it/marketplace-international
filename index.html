@@ -822,6 +822,84 @@
   // Disponible para las siguientes funciones de Yumora
   window.yumoraSupabase = supabase;
 
+  
+  // Registro real de vendedores en Yumora
+  const sellerForm = document.getElementById("sellerForm");
+
+  if (sellerForm) {
+    sellerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const message = document.getElementById("sellerMessage");
+      const button = sellerForm.querySelector('button[type="submit"]');
+
+      const name = document.getElementById("sellerName").value.trim();
+      const email = document.getElementById("sellerEmail").value.trim();
+      const password = document.getElementById("sellerPassword").value;
+      const confirmPassword = document.getElementById("sellerPasswordConfirm").value;
+      const country = document.getElementById("sellerCountry").value.trim();
+      const type = document.getElementById("sellerType").value;
+      const plan = document.getElementById("sellerPlan").value;
+      const products = document.getElementById("sellerProducts").value.trim();
+
+      message.classList.remove("visible");
+      message.textContent = "";
+
+      if (password.length < 8) {
+        message.textContent = "La contraseña debe tener al menos 8 caracteres.";
+        message.classList.add("visible");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        message.textContent = "Las contraseñas no coinciden.";
+        message.classList.add("visible");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Creando cuenta...";
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo:
+              window.location.origin + window.location.pathname,
+            data: {
+              yumora_seller_registration: "true",
+              full_name: name,
+              business_name: name,
+              country: country,
+              seller_type: type,
+              plan_interest: plan,
+              product_description: products
+            }
+          }
+        });
+
+        if (error) throw error;
+
+        message.textContent = data.session
+          ? "¡Cuenta creada! Tu cuenta de vendedor está aprobada y puedes continuar."
+          : "¡Registro enviado! Revisa tu correo para confirmar tu cuenta. La aprobación de vendedor se gestiona automáticamente.";
+
+        message.classList.add("visible");
+        sellerForm.reset();
+
+      } catch (error) {
+        console.error("Error en el registro de Yumora:", error);
+        message.textContent =
+          "No se pudo completar el registro. " + error.message;
+        message.classList.add("visible");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Enviar interés";
+      }
+    });
+  }
+
   // Aviso temporal para comprobar la conexión
   const aviso = document.createElement('div');
   aviso.style.cssText =
