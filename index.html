@@ -937,6 +937,46 @@
     });
   }
 
+  
+  // Inicio de sesión de vendedores
+  const loginForm = document.getElementById("loginForm");
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const message = document.getElementById("loginMessage");
+      const button = loginForm.querySelector('button[type="submit"]');
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      message.textContent = "";
+      button.disabled = true;
+      button.textContent = "Entrando...";
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) throw error;
+
+        message.textContent =
+          "¡Sesión iniciada! Tu cuenta de Yumora está conectada.";
+
+      } catch (error) {
+        console.error("Error al iniciar sesión en Yumora:", error);
+
+        message.textContent =
+          "No se pudo iniciar sesión. Revisa tu correo, contraseña y confirmación del correo electrónico.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Entrar a Yumora";
+      }
+    });
+  }
+
   // Aviso temporal para comprobar la conexión
   const aviso = document.createElement('div');
   aviso.style.cssText =
