@@ -553,6 +553,94 @@
   </div>
 </section>
 
+<section id="sellerDashboard" style="display:none">
+  <div class="form-card">
+    <div class="eyebrow">MI NEGOCIO</div>
+    <h2>Panel del vendedor</h2>
+    <p class="muted">
+      Administra tus productos y prepara tu catálogo para Yumora.
+    </p>
+
+    <div id="sellerWelcome" class="notice" role="status"></div>
+
+    <h3>Agregar producto</h3>
+
+    <form id="productForm" class="form-grid">
+      <label for="productTitle">Nombre del producto</label>
+      <input
+        id="productTitle"
+        type="text"
+        maxlength="150"
+        placeholder="Ej. Collar artesanal"
+        required
+      />
+
+      <label for="productDescription">Descripción</label>
+      <textarea
+        id="productDescription"
+        maxlength="2000"
+        placeholder="Describe tu producto"
+        required
+      ></textarea>
+
+      <label for="productPrice">Precio</label>
+      <input
+        id="productPrice"
+        type="number"
+        min="0.01"
+        step="0.01"
+        placeholder="Ej. 2500"
+        required
+      />
+
+      <label for="productCurrency">Moneda</label>
+      <select id="productCurrency" required>
+        <option value="CRC">Colones costarricenses (CRC)</option>
+        <option value="USD">Dólares estadounidenses (USD)</option>
+        <option value="COP">Pesos colombianos (COP)</option>
+      </select>
+
+      <label for="productCategory">Categoría</label>
+      <input
+        id="productCategory"
+        type="text"
+        maxlength="100"
+        placeholder="Ej. Accesorios"
+        required
+      />
+
+      <label for="productImage">URL de la imagen</label>
+      <input
+        id="productImage"
+        type="url"
+        placeholder="https://..."
+      />
+
+      <label for="productStock">Cantidad disponible</label>
+      <input
+        id="productStock"
+        type="number"
+        min="0"
+        step="1"
+        value="1"
+        required
+      />
+
+      <button class="primary" type="submit">
+        Guardar producto
+      </button>
+
+      <p id="productMessage" class="notice"
+         role="status" aria-live="polite"></p>
+    </form>
+
+    <h3>Mis productos</h3>
+    <div id="sellerProductList">
+      Todavía no hemos cargado tus productos.
+    </div>
+  </div>
+</section>
+
   </main>
 
   <footer>
