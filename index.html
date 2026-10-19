@@ -1229,21 +1229,6 @@
   aviso.textContent = 'Conectando Yumora...';
   document.body.appendChild(aviso);
 
-  try {
-    const { error } = await supabase
-      .from('products')
-      .select('id')
-      .limit(1);
-
-    if (error) throw error;
-
-    aviso.textContent = 'Yumora conectada con Supabase ✓';
-    console.log('Yumora: conexión con la tabla products correcta.');
-  } catch (error) {
-    aviso.textContent =
-      'Conexión configurada; debemos revisar la API o los permisos.';
-    console.error('Revisión de Supabase:', error);
-  }
 </script>
 </body>
 </html>
