@@ -1065,6 +1065,161 @@
     });
   }
 
+  // Panel y productos del vendedor
+  const sellerDashboard = document.getElementById("sellerDashboard");
+  const sellerWelcome = document.getElementById("sellerWelcome");
+  const productForm = document.getElementById("productForm");
+  const productMessage = document.getElementById("productMessage");
+  const sellerProductList = document.getElementById("sellerProductList");
+
+  async function loadSellerPanel() {
+    if (!sellerDashboard) return;
+
+    const { data: { user }, error: userError } =
+      await supabase.auth.getUser();
+
+    if (userError || !user) {
+      sellerDashboard.style.display = "none";
+      return;
+    }
+
+    const { data: seller, error: sellerError } = await supabase
+      .from("seller_profiles")
+      .select("status, business_name")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (sellerError || !seller) {
+      sellerDashboard.style.display = "none";
+      console.error("No se pudo consultar el perfil:", sellerError);
+      return;
+    }
+
+    if (seller.status !== "approved") {
+      sellerDashboard.style.display = "block";
+      sellerWelcome.textContent =
+        "Tu cuenta todavía no está autorizada para publicar productos.";
+      productForm.style.display = "none";
+      return;
+    }
+
+    sellerDashboard.style.display = "block";
+    sellerWelcome.textContent =
+      "¡Bienvenida/o a Yumora" +
+      (seller.business_name ? ", " + seller.business_name : "") +
+      "!";
+
+    productForm.style.display = "grid";
+    await loadSellerProducts(user.id);
+  }
+
+  async function loadSellerProducts(userId) {
+    const { data, error } = await supabase
+      .from("products")
+      .select("id, title, price, currency, status")
+      .eq("seller_id", userId)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      sellerProductList.textContent =
+        "No pudimos cargar tus productos. Revisa los permisos.";
+      console.error(error);
+      return;
+    }
+
+    sellerProductList.replaceChildren();
+
+    if (!data || data.length === 0) {
+      sellerProductList.textContent = "Todavía no tienes productos.";
+      return;
+    }
+
+    data.forEach((product) => {
+      const item = document.createElement("div");
+      item.style.cssText = "padding:12px 0;border-bottom:1px solid #ddd";
+
+      const name = document.createElement("strong");
+      name.textContent = product.title;
+
+      const detail = document.createElement("p");
+      detail.textContent =
+        `${product.price} ${product.currency} · Estado: ${product.status}`;
+
+      item.append(name, detail);
+      sellerProductList.appendChild(item);
+    });
+  }
+
+  if (productForm) {
+    productForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        productMessage.textContent = "Inicia sesión para guardar productos.";
+        return;
+      }
+
+      const button = productForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      productMessage.textContent = "Guardando producto...";
+
+      try {
+        const price = Number(
+          document.getElementById("productPrice").value
+        );
+        const stock = Number(
+          document.getElementById("productStock").value
+        );
+
+        if (!Number.isFinite(price) || price <= 0 ||
+            !Number.isInteger(stock) || stock < 0) {
+          throw new Error("Revisa el precio y la cantidad disponible.");
+        }
+
+        const product = {
+          seller_id: user.id,
+          title: document.getElementById("productTitle").value.trim(),
+          description: document.getElementById("productDescription").value.trim(),
+          price,
+          currency: document.getElementById("productCurrency").value,
+          category: document.getElementById("productCategory").value.trim(),
+          image_url: document.getElementById("productImage").value.trim() || null,
+          stock,
+          status: "draft"
+        };
+
+        const { error } = await supabase
+          .from("products")
+          .insert(product);
+
+        if (error) throw error;
+
+        productMessage.textContent =
+          "¡Producto guardado como borrador!";
+        productForm.reset();
+        document.getElementById("productStock").value = "1";
+
+        await loadSellerProducts(user.id);
+      } catch (error) {
+        console.error("Error al guardar producto:", error);
+        productMessage.textContent =
+          "No se pudo guardar: " + error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+      setTimeout(() => loadSellerPanel(), 0);
+    }
+  });
+
+  loadSellerPanel();
+
   // Aviso temporal para comprobar la conexión
   const aviso = document.createElement('div');
   aviso.style.cssText =
