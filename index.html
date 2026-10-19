@@ -791,5 +791,48 @@
     renderProducts();
     renderCart();
   </script>
+  <!-- Conexión inicial de Yumora con Supabase -->
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://hlfnkpegenhufhmzrthk.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_5AE8349nrOGWJLZtnh1GGA_cesegcar'; 
+
+  const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  // Disponible para las siguientes funciones de Yumora
+  window.yumoraSupabase = supabase;
+
+  // Aviso temporal para comprobar la conexión
+  const aviso = document.createElement('div');
+  aviso.style.cssText =
+    'position:fixed;bottom:15px;left:50%;' +
+    'transform:translateX(-50%);z-index:99999;' +
+    'background:#14243E;color:#F8F6F1;padding:12px 18px;' +
+    'border-radius:10px;font:14px Arial,sans-serif;' +
+    'max-width:90%;text-align:center';
+  aviso.textContent = 'Conectando Yumora...';
+  document.body.appendChild(aviso);
+
+  try {
+    const { error } = await supabase
+      .from('products')
+      .select('id')
+      .limit(1);
+
+    if (error) throw error;
+
+    aviso.textContent = 'Yumora conectada con Supabase ✓';
+    console.log('Yumora: conexión con la tabla products correcta.');
+  } catch (error) {
+    aviso.textContent =
+      'Conexión configurada; debemos revisar la API o los permisos.';
+    console.error('Revisión de Supabase:', error);
+  }
+</script>
 </body>
 </html>
