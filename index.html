@@ -527,7 +527,8 @@
         </div>
       </div>
     </section>
- 
+    
+ <div id="sellerArea" style="display:none">
 <section id="seller-login">
   <div class="form-card" style="max-width:520px;margin:0 auto">
     <div class="eyebrow">ÁREA DE VENDEDORES</div>
@@ -620,12 +621,13 @@
         required
       />
 
-      <label for="productImage">URL de la imagen</label>
-      <input
-        id="productImage"
-        type="url"
-        placeholder="https://..."
-      />
+      
+<label for="productImage">Imagen del producto</label>
+<input
+  id="productImage"
+  type="file"
+  accept="image/*"
+/>
 
       <label for="productStock">Cantidad disponible</label>
       <input
@@ -651,6 +653,7 @@
     </div>
   </div>
 </section>
+</div>
 
   </main>
 
@@ -1035,6 +1038,43 @@
   }
 
   
+const sellerArea = document.getElementById("sellerArea");
+const sellerAccessButton = document.getElementById("sellerAccessButton");
+
+function showSellerArea(view = "login") {
+  if (!sellerArea) return;
+
+  sellerArea.style.display = "block";
+
+  const loginSection = document.getElementById("seller-login");
+  const dashboard = document.getElementById("sellerDashboard");
+
+  if (view === "dashboard") {
+    if (loginSection) loginSection.style.display = "none";
+    if (dashboard) dashboard.style.display = "block";
+  } else {
+    if (loginSection) loginSection.style.display = "block";
+    if (dashboard) dashboard.style.display = "none";
+  }
+
+  sellerArea.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+if (sellerAccessButton) {
+  sellerAccessButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+      showSellerArea("dashboard");
+      await loadSellerPanel();
+    } else {
+      showSellerArea("login");
+    }
+  });
+}
+
   // Inicio de sesión de vendedores
   const loginForm = document.getElementById("loginForm");
 
@@ -1098,13 +1138,22 @@
       .eq("user_id", user.id)
       .maybeSingle();
 
-    if (sellerError || !seller) {
-      sellerDashboard.style.display = "none";
-      console.error("No se pudo consultar el perfil:", sellerError);
-      return;
-    }
+  if (sellerError || !seller) {
+  sellerArea.style.display = "block";
+  sellerDashboard.style.display = "none";
+
+  const loginSection = document.getElementById("seller-login");
+  if (loginSection) loginSection.style.display = "block";
+
+  console.error("No se pudo consultar el perfil:", sellerError);
+  return;
+}
 
     if (seller.status !== "approved") {
+      sellerArea.style.display = "block";
+document.getElementById("seller-login").style.display = "none";
+      sellerArea.style.display = "block";
+document.getElementById("seller-login").style.display = "none";
       sellerDashboard.style.display = "block";
       sellerWelcome.textContent =
         "Tu cuenta todavía no está autorizada para publicar productos.";
@@ -1159,67 +1208,138 @@
     });
   }
 
-  if (productForm) {
-    productForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+ 
+if (productForm) {
+  productForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-      const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user }, error: authError } =
+      await supabase.auth.getUser();
 
-      if (!user) {
-        productMessage.textContent = "Inicia sesión para guardar productos.";
-        return;
+    if (authError || !user) {
+      productMessage.textContent =
+        "Inicia sesión para guardar productos.";
+      return;
+    }
+
+    const button = productForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    productMessage.textContent = "Guardando producto...";
+
+    let uploadedImagePath = null;
+
+    try {
+      const title =
+        document.getElementById("productTitle").value.trim();
+      const description =
+        document.getElementById("productDescription").value.trim();
+      const price = Number(
+        document.getElementById("productPrice").value
+      );
+      const stock = Number(
+        document.getElementById("productStock").value
+      );
+      const currency =
+        document.getElementById("productCurrency").value;
+      const category =
+        document.getElementById("productCategory").value.trim();
+
+      if (!title) {
+        throw new Error("Escribe el nombre del producto.");
       }
 
-      const button = productForm.querySelector('button[type="submit"]');
-      button.disabled = true;
-      productMessage.textContent = "Guardando producto...";
+      if (!Number.isFinite(price) || price <= 0 ||
+          !Number.isInteger(stock) || stock < 0) {
+        throw new Error("Revisa el precio y la cantidad disponible.");
+      }
 
-      try {
-        const price = Number(
-          document.getElementById("productPrice").value
-        );
-        const stock = Number(
-          document.getElementById("productStock").value
-        );
+      const imageFile =
+        document.getElementById("productImage").files[0];
+      let imageUrl = null;
 
-        if (!Number.isFinite(price) || price <= 0 ||
-            !Number.isInteger(stock) || stock < 0) {
-          throw new Error("Revisa el precio y la cantidad disponible.");
+      if (imageFile) {
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ];
+
+        if (!allowedTypes.includes(imageFile.type)) {
+          throw new Error("Usa una imagen JPG, PNG o WEBP.");
         }
 
-        const product = {
-          seller_id: user.id,
-          title: document.getElementById("productTitle").value.trim(),
-          description: document.getElementById("productDescription").value.trim(),
-          price,
-          currency: document.getElementById("productCurrency").value,
-          category: document.getElementById("productCategory").value.trim(),
-          image_url: document.getElementById("productImage").value.trim() || null,
-          stock,
-          status: "draft"
-        };
+        if (imageFile.size > 5 * 1024 * 1024) {
+          throw new Error("La imagen debe pesar 5 MB o menos.");
+        }
 
-        const { error } = await supabase
-          .from("products")
-          .insert(product);
+        const extension = imageFile.name
+          .split(".")
+          .pop()
+          .toLowerCase();
 
-        if (error) throw error;
+        const imagePath =
+          `${user.id}/${crypto.randomUUID()}.${extension}`;
 
-        productMessage.textContent =
-          "¡Producto guardado como borrador!";
-        productForm.reset();
-        document.getElementById("productStock").value = "1";
+        const { error: uploadError } = await supabase.storage
+          .from("product-images")
+          .upload(imagePath, imageFile, {
+            contentType: imageFile.type,
+            upsert: false
+          });
 
-        await loadSellerProducts(user.id);
-      } catch (error) {
-        console.error("Error al guardar producto:", error);
-        productMessage.textContent =
-          "No se pudo guardar: " + error.message;
-      } finally {
-        button.disabled = false;
+        if (uploadError) throw uploadError;
+
+        uploadedImagePath = imagePath;
+        imageUrl = imagePath;
       }
-    });
-  }
+
+      const product = {
+        seller_id: user.id,
+        title,
+        description,
+        price,
+        currency,
+        category,
+        image_url: imageUrl,
+        stock,
+        status: "draft"
+      };
+
+      const { error: insertError } = await supabase
+        .from("products")
+        .insert(product);
+
+      if (insertError) throw insertError;
+
+      productMessage.textContent =
+        "¡Producto guardado como borrador!";
+      productForm.reset();
+      document.getElementById("productStock").value = "1";
+
+      await loadSellerProducts(user.id);
+    } catch (error) {
+      console.error("Error al guardar producto:", error);
+
+      // Si la imagen se subió pero falló el registro,
+      // intentamos eliminar el archivo para no dejarlo huérfano.
+      if (uploadedImagePath) {
+        const { error: cleanupError } = await supabase.storage
+          .from("product-images")
+          .remove([uploadedImagePath]);
+
+        if (cleanupError) {
+          console.error("No se pudo limpiar la imagen:", cleanupError);
+        }
+      }
+
+      productMessage.textContent =
+        "No se pudo guardar: " + error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
+
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
