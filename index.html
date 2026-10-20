@@ -246,6 +246,42 @@
       .footer-grid { grid-template-columns: 1fr; }
       .footer-brand { grid-column: auto; }
     }
+  
+/* Vista independiente del panel de vendedor */
+body.seller-mode > header,
+body.seller-mode > footer,
+body.seller-mode > nav {
+  display: none !important;
+}
+
+body.seller-mode main > section:not(#sellerArea),
+body.seller-mode main > div:not(#sellerArea) {
+  display: none !important;
+}
+
+body.seller-mode #sellerArea {
+  display: block !important;
+  min-height: 80vh;
+  padding: 40px 20px;
+  background: #F8F6F1;
+}
+
+body.seller-mode #seller-login,
+body.seller-mode #sellerDashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+body.seller-mode #sellerDashboard .form-card,
+body.seller-mode #seller-login .form-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body.seller-mode #sellerDashboard h2 {
+  color: #14243E;
+}
+
   </style>
 </head>
 <body>
@@ -566,6 +602,11 @@
 </section>
 
 <section id="sellerDashboard" style="display:none">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+  <button type="button" id="logoutButton" class="button button-secondary">
+    Cerrar sesión
+  </button>
+</div>
   <div class="form-card">
     <div class="eyebrow">MI NEGOCIO</div>
     <h2>Panel del vendedor</h2>
@@ -1041,9 +1082,40 @@
 const sellerArea = document.getElementById("sellerArea");
 const sellerAccessButton = document.getElementById("sellerAccessButton");
 
+const logoutButton = document.getElementById("logoutButton");
+
+if (logoutButton) {
+  logoutButton.addEventListener("click", async () => {
+    logoutButton.disabled = true;
+    logoutButton.textContent = "Cerrando sesión...";
+
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) throw error;
+
+      document.body.classList.remove("seller-mode");
+      sellerArea.style.display = "none";
+
+      const loginForm = document.getElementById("loginForm");
+      if (loginForm) loginForm.reset();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      alert("No se pudo cerrar la sesión. Inténtalo de nuevo.");
+    } finally {
+      logoutButton.disabled = false;
+      logoutButton.textContent = "Cerrar sesión";
+    }
+  });
+}
+
+
 function showSellerArea(view = "login") {
   if (!sellerArea) return;
 
+  document.body.classList.add("seller-mode");
   sellerArea.style.display = "block";
 
   const loginSection = document.getElementById("seller-login");
@@ -1057,14 +1129,18 @@ function showSellerArea(view = "login") {
     if (dashboard) dashboard.style.display = "none";
   }
 
-  sellerArea.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 if (sellerAccessButton) {
   sellerAccessButton.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if (error) {
+      console.error("No se pudo comprobar la sesión:", error);
+    }
 
     if (user) {
       showSellerArea("dashboard");
@@ -1099,8 +1175,10 @@ if (sellerAccessButton) {
 
         if (error) throw error;
 
-        message.textContent =
-          "¡Sesión iniciada! Tu cuenta de Yumora está conectada.";
+      message.textContent = "¡Sesión iniciada! Abriendo tu panel...";
+
+showSellerArea("dashboard");
+await loadSellerPanel();
 
       } catch (error) {
         console.error("Error al iniciar sesión en Yumora:", error);
@@ -1138,29 +1216,41 @@ if (sellerAccessButton) {
       .eq("user_id", user.id)
       .maybeSingle();
 
-  if (sellerError || !seller) {
-  sellerArea.style.display = "block";
-  sellerDashboard.style.display = "none";
+ 
+if (sellerError || !seller) {
+  showSellerArea("login");
 
-  const loginSection = document.getElementById("seller-login");
-  if (loginSection) loginSection.style.display = "block";
+  const loginMessage = document.getElementById("loginMessage");
+  if (loginMessage) {
+    loginMessage.textContent =
+      "No pudimos cargar tu perfil de vendedor. Intenta nuevamente.";
+  }
 
   console.error("No se pudo consultar el perfil:", sellerError);
   return;
 }
 
-    if (seller.status !== "approved") {
-      sellerArea.style.display = "block";
-document.getElementById("seller-login").style.display = "none";
-      sellerArea.style.display = "block";
-document.getElementById("seller-login").style.display = "none";
-      sellerDashboard.style.display = "block";
-      sellerWelcome.textContent =
-        "Tu cuenta todavía no está autorizada para publicar productos.";
-      productForm.style.display = "none";
-      return;
-    }
+   
+if (seller.status !== "approved") {
+  sellerArea.style.display = "block";
 
+  const loginSection = document.getElementById("seller-login");
+  if (loginSection) loginSection.style.display = "none";
+
+  sellerDashboard.style.display = "block";
+
+  sellerWelcome.textContent =
+    "Tu cuenta todavía no está autorizada para publicar productos.";
+
+  if (productForm) productForm.style.display = "none";
+
+  return;
+}
+
+    sellerArea.style.display = "block";
+
+const loginSection = document.getElementById("seller-login");
+if (loginSection) loginSection.style.display = "none";
     sellerDashboard.style.display = "block";
     sellerWelcome.textContent =
       "¡Bienvenida/o a Yumora" +
